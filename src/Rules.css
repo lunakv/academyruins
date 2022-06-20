@@ -104,3 +104,23 @@ td {
     margin-left: 2em;
 }
 
+/* only show side navigation on large screens */
+.side-navigation {
+    display: none;
+}
+
+.side-navigation .btn-link {
+    color: var(--gray);
+}
+
+.side-navigation .btn-link:disabled {
+    display: none;
+}
+
+@media only screen and (min-width: 1200px) {
+    .side-navigation {
+        display: block;
+    }
+}
+
+
