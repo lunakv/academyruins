@@ -1,0 +1,106 @@
+th {
+    font-family: 'Libre Baskerville', sans-serif;
+    text-align: center;
+    text-shadow: 1px 1px var(--black);
+    font-size: 1.728rem;
+    border-radius: 0 2rem 0 2rem;
+    padding: 1rem;
+}
+
+tr {
+    border-bottom: 1px solid var(--black);
+    vertical-align: middle;
+}
+
+tr:last-child {
+    border-bottom: none;
+}
+
+table.diff-table tbody, table.diff-table thead {
+    border: none;
+}
+
+td {
+    word-break: break-word;
+    padding: 1.2rem;
+    vertical-align: baseline;
+}
+
+#oldHeader {
+    color: var(--red);
+}
+
+#newHeader {
+    color: var(--green);
+}
+
+.old {
+    text-decoration: line-through;
+    color:var(--red);
+    font-weight: bold;
+}
+
+.new {
+    font-weight: bold;
+    color: var(--white);
+    background: var(--green);
+}
+
+.new a {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+.remove {
+    color: var(--red);
+}
+
+.add {
+    color: var(--green);
+}
+
+.img-container {
+    display: block;
+}
+
+.img-fluid {
+    display: inline-block;
+    margin: 5px;
+    width: 245px;
+    height: auto;
+}
+
+.img-fluid::after {
+    content: "";
+    clear: both;
+    display: inherit;
+}
+
+.flipped {
+    -webkit-transform:rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.sideways {
+    -webkit-transform:rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    width: 341.4px;
+    margin: -73px 80px;
+}
+
+.specified {
+    padding: .5em 0;
+    border-radius: 4px;
+    background-color: #D3F985;
+}
+
+.subrule {
+    margin-left: 2em;
+}
+

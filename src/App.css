@@ -1,38 +1,187 @@
-.App {
-  text-align: center;
+/*@import url('https://fonts.googleapis.com/css?family=Charm|Oswald|Muli|IM+Fell+English+SC|IM+Fell+English|Libre+Baskerville|Montserrat'); */
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Montserrat:wght@400;500;700;800;900&family=Libre+Baskerville&display=swap');
+
+/* Colors are from
+http://i.imgur.com/dMjPOq0.png */
+:root {
+    --gray: #A6A99D;
+    --black: #150b00;
+    --light-green: #C4D3CA;
+    --green: #315c2b;
+    --light-blue: #B3CEEA;
+    --blue: #0E68AB;
+    --light-red: #EB9F82;
+    --red: #5A1807;
+    --cream: #F7DD72;
+    --white: #F9FAF4;
+
+    --bs-dark-rgb: 25, 46, 57;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.offset {
+    margin: 12%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    width: 75%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h1, h2, h3, h4, h5 {
+    font-family: 'Libre Baskerville', sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+h2 {font-size: 2.074rem;}
+
+h3 {font-size: 1.728rem;}
+
+h4 {font-size: 1.44rem;}
+
+h5 {font-size: 1.2rem;}
+
+.navbar-dark .navbar-brand {
+    font-family: 'IM Fell English SC', cursive;
+    color: var(--cream) !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar-dark .navbar-brand:hover {
+    color: var(--cream);
+}
+
+.navbar-dark .navbar-nav a.nav-link {
+    color: var(--cream);
+}
+
+.nav .nav-item .nav-link:not(.active) {
+    color: var(--cream);
+}
+
+.navbar-dark .nav-link:hover {
+    color: var(--white);
+}
+
+.navbar-dark .navbar-toggler {
+    color: var(--cream);
+    border-color: var(--white);
+    line-height: 3rem;
+}
+
+.navbar-dark {
+    background-color: #192E39;
+}
+
+
+.dropdown {
+    list-style-type: none;
+}
+.dropdown-menu a.dropdown-item {
+    background-color: #343a40;
+    color: var(--cream);
+}
+
+a {
+    color: #004ba1;
+}
+
+
+/* get the dirty, 'noisy' background */
+body {
+    background: linear-gradient(90deg, #eed 0%, #ffe 10%, #ffe 90%, #eed 100%);
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen {
+    html {
+        font-size:1.6rem;
+        line-height: 1.92rem;
+    }
+
+    .container-fluid {
+        max-width: 100%;
+
+    }
+    .navbar-dark .navbar-brand {
+        font-size: 2rem;
+    }
+
+    .navbar-dark .nav-link {
+        font-size:2rem;
+        line-height: 2.4rem;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 651px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .container-fluid {
+        max-width: 100%;
+    }
+
+    .navbar-dark .navbar-brand {
+        font-size: 1.7rem;
+    }
+
+    .navbar-dark .nav-link {
+        font-size: 2rem;
+        line-height: 2.4rem;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 1000px) {
+    .container-fluid {
+        max-width: 90%;
+    }
+
+    .navbar-dark .nav-link {
+        font-size: 1rem;
+        line-height: 1rem;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    html {
+        font-size: 1rem;
+        line-height: 1.2rem;
+    }
+
+    .container-fluid {
+        max-width: 80%;
+    }
+}
+
+.navbar-toggler-icon{
+    font-size: 3em;
+}
+
+.container-fluid {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-tabs {
+    font-size:1.728rem;
+    color: var(--cream);
+    font-family:"Libre Baskerville", sans-serif;
+}
+
+.nav-link.active {
+    background-color: var(--cream);
+    color: #343a40;
+}
+
+a.nav-link {
+    color: var(--cream);
+}
+
+a.nav-link:hover {
+    color: var(--white);
 }
