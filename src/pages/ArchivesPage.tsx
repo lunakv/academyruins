@@ -1,6 +1,8 @@
 import "../Support.css";
 import { Col, Container, Row } from "react-bootstrap";
+import CrArchive from "../components/CrArchive";
 // TODO keyrune css
+
 const ArchivesPage = () => (
   <Container fluid className="text-center offset">
     <h2>Old Diffs</h2>
@@ -350,7 +352,7 @@ const ArchivesPage = () => (
             role="tabpanel"
             aria-labelledby="cr-tab"
           >
-            Archive CR {/* TODO CR archive */}
+            <CrArchive />
           </div>
           <div
             id="IPG"

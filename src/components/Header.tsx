@@ -12,7 +12,7 @@ const Header = () => (
         <Navbar.Collapse id="header-nav">
           <Nav className="me-auto">
             <NavDropdown title="Diffs" menuVariant="dark" className="bg-dark">
-              <NavDropdown.Item as={Link} to="/diff/cr">
+              <NavDropdown.Item as={Link} to="/diff/cr/latest">
                 Comprehensive Rules
               </NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/diff/ipg">

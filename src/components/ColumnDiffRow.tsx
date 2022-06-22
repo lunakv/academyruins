@@ -6,8 +6,10 @@ interface ColumnDiffProps {
 }
 
 const ColumnDiffRow = ({ row }: ColumnDiffProps) => {
-  const oldText = transformRuleText(row.old?.ruleText, true);
-  const newText = transformRuleText(row.new?.ruleText, false);
+  const [oldText, newText] = transformRuleText(
+    row.old?.ruleText,
+    row.new?.ruleText
+  );
   return (
     <tr>
       <td>

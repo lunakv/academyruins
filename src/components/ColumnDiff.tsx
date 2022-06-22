@@ -7,12 +7,12 @@ import ColumnDiffRow from "./ColumnDiffRow";
 import { Diff } from "../types";
 
 interface Props {
-  oldName: string;
-  newName: string;
-  changes: Diff[];
+  oldName?: string;
+  newName?: string;
+  changes?: Diff[];
 }
 
-const ColumnDiffPage = ({ oldName, newName, changes }: Props) => (
+const ColumnDiffPage = ({ oldName, newName, changes = [] }: Props) => (
   <Container fluid>
     <table className="diff-table">
       <thead>

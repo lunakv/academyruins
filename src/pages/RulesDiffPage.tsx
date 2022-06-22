@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import ColumnDiffPage from "../components/ColumnDiff";
 import { Diff } from "../types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import NavigationSidePanel from "../components/NavigationSidePanel";
+import Loading from "../components/Loading";
 
-async function fetch_latest_diff(sets?: string) {
-  if (!sets) sets = "latest";
+async function fetch_latest_diff(sets: string) {
   const res = await fetch(
     `${process.env.REACT_APP_API_URL}/diff/cr/${encodeURIComponent(sets)}`
   );
@@ -24,53 +24,54 @@ interface ApiDiff {
 }
 
 const RulesDiffPage = () => {
+  const params = useParams();
   const [diff, setDiff] = useState<ApiDiff | undefined>(undefined);
-  const [diffString, setDiffString] = useState<string | undefined>(undefined);
+  const [isLoading, setLoading] = useState(true);
+  const diffString = params.codes ?? "latest";
   const navigate = useNavigate();
 
+  const [error, setError] = useState(undefined);
+  if (error) throw error;
+
   useEffect(() => {
-    if (diffString) navigate(`./${diffString}`);
+    setLoading(true);
     fetch_latest_diff(diffString)
       .then(setDiff)
+      .then(() => setLoading(false))
       .catch((e) => {
-        navigate(`/error?message=${encodeURIComponent(e.message)}`);
+        setError(e);
       });
   }, [diffString]);
 
-  const handleNext = () => {
-    if (!diff || !diff.nav.next) return;
-    const sets = diff.nav.next;
-    setDiffString(sets.old + "-" + sets.new);
+  const handleMove = (prop: "prev" | "next") => {
+    if (!diff) return;
+    const sets = diff.nav[prop];
+    if (!sets) return;
+    navigate(`./../${sets.old}-${sets.new}`);
     setDiff(undefined);
   };
 
-  const handlePrev = () => {
-    if (!diff || !diff.nav.prev) return;
-    const sets = diff.nav.prev;
-    setDiffString(sets.old + "-" + sets.new);
-    setDiff(undefined);
-  };
-
-  if (!diff) return <p>Loading...</p>;
+  const handlePrev = () => handleMove("prev");
+  const handleNext = () => handleMove("next");
 
   return (
-    <>
+    <Loading isLoading={isLoading} className="mt-5">
       <NavigationSidePanel
         position="left"
-        disabled={!diff.nav.prev}
+        disabled={!diff?.nav.prev}
         onClick={handlePrev}
       />
       <ColumnDiffPage
-        changes={diff.changes}
-        oldName={diff.source_set}
-        newName={diff.dest_set}
+        changes={diff?.changes}
+        oldName={diff?.source_set}
+        newName={diff?.dest_set}
       />
       <NavigationSidePanel
         position="right"
-        disabled={!diff.nav.next}
+        disabled={!diff?.nav.next}
         onClick={handleNext}
       />
-    </>
+    </Loading>
   );
 };
 
