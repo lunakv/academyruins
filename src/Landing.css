@@ -1,0 +1,15 @@
+
+@media screen and (min-width: 800px) {
+    #first-line::after {
+        content: "\a";
+        white-space: pre;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    #landing-content {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

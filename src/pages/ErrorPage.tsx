@@ -11,7 +11,7 @@ const ErrorPage = ({ message }: Props) => {
   message ??= searchParams.get("message") ?? "An unidentified error occurred";
 
   return (
-    <Container fluid className="offset text-center">
+    <Container fluid="lg" className="offset text-center">
       <p className="cursive">
         Venser wondered if it could still be called a teleportation spell if the
         destination is <span className="spooky">oblivion</span>.

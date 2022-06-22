@@ -348,7 +348,7 @@ const ArchivesPage = () => (
         <div className="tab-content">
           <div
             id="CR"
-            className="container tab-pane fade active show"
+            className="link-container tab-pane fade active show"
             role="tabpanel"
             aria-labelledby="cr-tab"
           >

@@ -19,7 +19,7 @@ http://i.imgur.com/dMjPOq0.png */
 }
 
 .offset {
-    margin: 12%;
+    margin-top: 12%;
 }
 
 hr {
@@ -65,7 +65,7 @@ h5 {font-size: 1.2rem;}
 .navbar-dark .navbar-toggler {
     color: var(--cream);
     border-color: var(--white);
-    line-height: 3rem;
+    font-size: 1em;
 }
 
 .navbar-dark {
@@ -94,23 +94,11 @@ body {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen {
-    html {
-        font-size:1.6rem;
-        line-height: 1.92rem;
-    }
 
-    .container-fluid {
-        max-width: 100%;
+}
 
-    }
-    .navbar-dark .navbar-brand {
-        font-size: 2rem;
-    }
-
-    .navbar-dark .nav-link {
-        font-size:2rem;
-        line-height: 2.4rem;
-    }
+.navbar-dark .navbar-brand {
+    font-size: 2rem;
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -120,52 +108,20 @@ body {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    .container-fluid {
-        max-width: 100%;
-    }
-
-    .navbar-dark .navbar-brand {
-        font-size: 1.7rem;
-    }
-
-    .navbar-dark .nav-link {
-        font-size: 2rem;
-        line-height: 2.4rem;
-    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 1000px) {
-    .container-fluid {
-        max-width: 90%;
-    }
-
-    .navbar-dark .nav-link {
-        font-size: 1rem;
-        line-height: 1rem;
-    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-    html {
-        font-size: 1rem;
-        line-height: 1.2rem;
-    }
-
-    .container-fluid {
-        max-width: 80%;
-    }
 }
 
 .navbar-toggler-icon{
-    font-size: 3em;
+    font-size: 2em;
 }
 
-.container-fluid {
-    margin-left: auto;
-    margin-right: auto;
-}
 
 .nav-tabs {
     font-size:1.728rem;

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Header = () => (
   <header>
     <Navbar bg="dark" variant="dark" expand="lg">
-      <Container fluid>
+      <Container fluid="lg">
         <Navbar.Brand as={Link} to="/">
           Academy Ruins
         </Navbar.Brand>

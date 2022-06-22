@@ -2,7 +2,7 @@ import "../Support.css";
 import { Container } from "react-bootstrap";
 
 const AboutPage = () => (
-  <Container fluid className="offset">
+  <Container fluid="lg" className="offset">
     <h2 className="text-center">About</h2>
     <p>
       This site is maintained by <b>Andrew Villarrubia</b>, an L2 Judge from

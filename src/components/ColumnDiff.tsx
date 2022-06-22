@@ -13,7 +13,7 @@ interface Props {
 }
 
 const ColumnDiffPage = ({ oldName, newName, changes = [] }: Props) => (
-  <Container fluid>
+  <Container fluid="lg">
     <table className="diff-table">
       <thead>
         <tr>
