@@ -12,12 +12,11 @@ const ErrorPage = ({ message }: Props) => {
 
   return (
     <Container fluid="lg" className="offset text-center">
-      <p className="cursive">
-        Venser wondered if it could still be called a teleportation spell if the
-        destination is <span className="spooky">oblivion</span>.
-      </p>
+      <p className="cursive">None can find what hasn’t been lost.</p>
       <hr />
-      <p>{message}</p>
+      <p>
+        <b>{message}</b>
+      </p>
     </Container>
   );
 };

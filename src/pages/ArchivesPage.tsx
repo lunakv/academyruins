@@ -4,12 +4,14 @@ import CrArchive from "../components/CrArchive";
 // TODO keyrune css
 
 const ArchivesPage = () => (
-  <Container fluid className="text-center offset">
-    <h2>Old Diffs</h2>
-    <p>
-      Previous diffs of the various docs. These are mostly preserved for people
-      who are interested in tracing the history of the tournament docs.
-    </p>
+  <Container fluid="lg" className=" my-5">
+    <div className="text-center mb-4">
+      <h2>Old Diffs</h2>
+      <p>
+        Previous diffs of the various docs. These are mostly preserved for
+        people who are interested in tracing the history of the tournament docs.
+      </p>
+    </div>
     <Row>
       {/* TODO load these lists from db instead of hard-coding them */}
       <Col md={4}>
@@ -301,11 +303,13 @@ const ArchivesPage = () => (
 
     <hr />
 
-    <h2>Raw Documents</h2>
-    <p>
-      Not interested in the changes and just want the docs in their pure,
-      unadulterated forms? Look no further.
-    </p>
+    <div className="text-center">
+      <h2>Raw Documents</h2>
+      <p>
+        Not interested in the changes and just want the docs in their pure,
+        unadulterated forms? Look no further.
+      </p>
+    </div>
 
     <Tabs
       defaultActiveKey="cr"
@@ -315,8 +319,12 @@ const ArchivesPage = () => (
       <Tab eventKey="cr" title="CR">
         <CrArchive />
       </Tab>
-      <Tab eventKey="mtr" title="MTR"></Tab>
-      <Tab eventKey="ipg" title="IPG"></Tab>
+      <Tab eventKey="mtr" title="MTR">
+        {/* TODO MTR archive */}
+      </Tab>
+      <Tab eventKey="ipg" title="IPG">
+        {/* TODO IPG archive */}
+      </Tab>
     </Tabs>
   </Container>
 );

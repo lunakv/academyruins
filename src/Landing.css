@@ -1,4 +1,5 @@
 
+/* insert newline between sentences on large displays */
 @media screen and (min-width: 800px) {
     #first-line::after {
         content: "\a";

@@ -5,7 +5,7 @@ import { Container } from "react-bootstrap";
 const LandingPage = () => (
   <Container fluid="lg">
     <div id="landing-content" className="offset text-center">
-      <p className="cursive">
+      <p className="cursive text-center">
         <span id="first-line">
           Its secrets once wrought the greatest artifice ever known.{" "}
         </span>
@@ -16,14 +16,12 @@ const LandingPage = () => (
       <hr />
       <div id="welcome-text">
         <p>
-          Venser's Journal is a Magic: the Gathering knowledge portal. Its
-          primary purpose is hosting diffs of the various Magic tournament
-          documents, specifically the Comprehensive Rules, Tournament Rules, and
-          Infraction Procedure Guide.
-        </p>
-        <p>
-          The archives also house as many old versions of the docs as I can
-          find.
+          Academy Ruins is a Magic: the Gathering knowledge portal. Its primary
+          purpose is hosting diffs of the various Magic rules documents,
+          specifically the Comprehensive Rules, the Magic Tournament Rules, and
+          the Infraction Procedure Guide. It also houses an API allowing
+          programmatic access to those documents, as well as an archive
+          containing many of their old versions.
         </p>
       </div>
     </div>

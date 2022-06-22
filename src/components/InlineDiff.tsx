@@ -9,7 +9,7 @@ interface Props {
 }
 
 const InlineDiffPage = ({ title, data }: Props) => (
-  <Container fluid>
+  <Container fluid="lg">
     <h2 className="text-center my-4">{title}</h2>
     <Accordion flush>
       {data.map((section) => (

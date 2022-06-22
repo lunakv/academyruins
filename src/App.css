@@ -1,8 +1,5 @@
-/*@import url('https://fonts.googleapis.com/css?family=Charm|Oswald|Muli|IM+Fell+English+SC|IM+Fell+English|Libre+Baskerville|Montserrat'); */
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Montserrat:wght@400;500;700;800;900&family=Libre+Baskerville&display=swap');
 
-/* Colors are from
-http://i.imgur.com/dMjPOq0.png */
 :root {
     --gray: #A6A99D;
     --black: #150b00;
