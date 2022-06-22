@@ -1,5 +1,5 @@
 import "../Support.css";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import CrArchive from "../components/CrArchive";
 // TODO keyrune css
 
@@ -299,7 +299,7 @@ const ArchivesPage = () => (
       </Col>
     </Row>
 
-    <hr className="w-100" />
+    <hr />
 
     <h2>Raw Documents</h2>
     <p>
@@ -307,72 +307,17 @@ const ArchivesPage = () => (
       unadulterated forms? Look no further.
     </p>
 
-    <Row>
-      <Col md={12} className="text-center">
-        <ul className="nav nav-tabs nav-justified bg-dark" role="tablist">
-          {/* TODO replace with react-bootstrap tabs */}
-          <li className="nav-item">
-            <button
-              className="nav-link active tab-header"
-              id="cr-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#CR"
-              role="tab"
-            >
-              CR
-            </button>
-          </li>
-          <li className="nav-item tab-header">
-            <button
-              className="nav-link"
-              id="ipg-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#IPG"
-              role="tab"
-            >
-              IPG
-            </button>
-          </li>
-          <li className="nav-item tab-header">
-            <button
-              className="nav-link"
-              id="mtr-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#MTR"
-              role="tab"
-            >
-              MTR
-            </button>
-          </li>
-        </ul>
-        <div className="tab-content">
-          <div
-            id="CR"
-            className="link-container tab-pane fade active show"
-            role="tabpanel"
-            aria-labelledby="cr-tab"
-          >
-            <CrArchive />
-          </div>
-          <div
-            id="IPG"
-            className="container tab-pane fade"
-            role="tabpanel"
-            aria-labelledby="ipg-tab"
-          >
-            Archive IPG {/* TODO IPG archive */}
-          </div>
-          <div
-            id="MTR"
-            className="container tab-pane fade"
-            role="tabpanel"
-            aria-labelledby="mtr-tab"
-          >
-            Archive MTR {/* TODO MTR archive */}
-          </div>
-        </div>
-      </Col>
-    </Row>
+    <Tabs
+      defaultActiveKey="cr"
+      variant="tabs"
+      className="nav-justified bg-dark"
+    >
+      <Tab eventKey="cr" title="CR">
+        <CrArchive />
+      </Tab>
+      <Tab eventKey="mtr" title="MTR"></Tab>
+      <Tab eventKey="ipg" title="IPG"></Tab>
+    </Tabs>
   </Container>
 );
 

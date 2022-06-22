@@ -104,9 +104,23 @@ td {
     margin-left: 2em;
 }
 
+
 /* only show side navigation on large screens */
 .side-navigation {
     display: none;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    /* place either at the middle of the container margin, or 3% from the edge, whichever is closer to the edge */
+    --sidenav-offset: min(3%, calc((100vw - var(--container-size)) / 4 - 12px));
+}
+
+.side-navigation.sn-right {
+    right: var(--sidenav-offset);
+}
+
+.side-navigation.sn-left {
+    left: var(--sidenav-offset);
 }
 
 .side-navigation .btn-link {
@@ -114,12 +128,19 @@ td {
 }
 
 .side-navigation .btn-link:disabled {
-    display: none;
+    display: none !important;
 }
 
 @media only screen and (min-width: 1200px) {
     .side-navigation {
         display: block;
+        --container-size: 1140px;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .side-navigation {
+        --container-size: 1320px;
     }
 }
 

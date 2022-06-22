@@ -22,23 +22,16 @@ const NavigationSidePanel = ({
   onClick,
 }: Props) => {
   const positionValue = Position[position];
-  let style: React.CSSProperties = {
-    top: "50%",
-    position: "fixed",
-    transform: "translateY(-50%)",
-  };
 
   let icon;
   if (positionValue === Position.right) {
     icon = faCaretRight;
-    style["right"] = "5%";
   } else {
     icon = faCaretLeft;
-    style["left"] = "5%";
   }
 
   return (
-    <div style={style} className="side-navigation">
+    <div className={`side-navigation sn-${position}`}>
       <Button variant="link" disabled={disabled} onClick={onClick}>
         <FontAwesomeIcon icon={icon} size="3x" />
       </Button>

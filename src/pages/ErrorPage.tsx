@@ -16,7 +16,7 @@ const ErrorPage = ({ message }: Props) => {
         Venser wondered if it could still be called a teleportation spell if the
         destination is <span className="spooky">oblivion</span>.
       </p>
-      <hr className="w-100" />
+      <hr />
       <p>{message}</p>
     </Container>
   );

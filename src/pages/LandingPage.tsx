@@ -13,7 +13,7 @@ const LandingPage = () => (
           Now crabs loot the rubble to decorate their shells.
         </span>
       </p>
-      <hr className="w-100" />
+      <hr />
       <div id="welcome-text">
         <p>
           Venser's Journal is a Magic: the Gathering knowledge portal. Its

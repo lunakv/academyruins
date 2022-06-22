@@ -68,7 +68,7 @@ const PreviewConfirmModal = ({ show, onHide }: Props) => {
             onChange={(e) => setPwd(e.target.value)}
           />
         </Form.Group>
-        <hr className="w-100" />
+        <hr />
         <textarea readOnly value={response} />
       </Modal.Body>
       <Modal.Footer>
