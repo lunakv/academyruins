@@ -38,7 +38,8 @@ const CrArchive = () => {
       {chunks.map((chunk) => (
         <Col md={4}>
           {chunk.map((item) => (
-            <div style={{ clear: "both", width: "80%", textAlign: "end" }}>
+            <div>
+              <i className={`ss ss-${item.set_code.toLowerCase()}`} />{" "}
               <a href={fileToUrl(item.file_name)}>{item.set_name}</a>
             </div>
           ))}
