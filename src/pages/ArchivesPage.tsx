@@ -2,6 +2,7 @@ import "../Support.css";
 import { Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import CrArchive from "../components/archives/CrArchive";
 import CrDiffArchive from "../components/archives/CrDiffArchive";
+import PolicyDocArchive from "../components/archives/PolicyDocArchive";
 // TODO keyrune css
 
 const ArchivesPage = () => (
@@ -51,13 +52,11 @@ const ArchivesPage = () => (
       <Tab eventKey="cr" title="CR">
         <CrArchive />
       </Tab>
-      <Tab eventKey="mtr" title="MTR">
-        {/* TODO MTR archive */}
-        <i>Coming soon!</i>
-      </Tab>
       <Tab eventKey="ipg" title="IPG">
-        {/* TODO IPG archive */}
-        <i>Coming soon!</i>
+        <PolicyDocArchive kind="ipg" />
+      </Tab>
+      <Tab eventKey="mtr" title="MTR">
+        <PolicyDocArchive kind="mtr" />
       </Tab>
     </Tabs>
   </Container>

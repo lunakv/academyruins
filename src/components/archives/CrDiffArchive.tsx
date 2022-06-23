@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBullhorn } from "@fortawesome/free-solid-svg-icons/faBullhorn";
 
 async function fetchMetadata() {
   const res = await fetch(`${process.env.REACT_APP_API_URL}/metadata/cr-diffs`);
@@ -11,6 +13,7 @@ interface DiffMetadata {
   source_code: string;
   dest_code: string;
   dest_name: string;
+  bulletin_url?: string;
 }
 
 function diffToUrl(item: DiffMetadata) {
@@ -28,7 +31,20 @@ const CrDiffArchive = () => {
     <>
       {metadata.map((diff) => (
         <p>
-          <Link to={diffToUrl(diff)}>{diff.dest_name}</Link>
+          <Link to={diffToUrl(diff)}>{diff.dest_name}</Link>{" "}
+          {diff.bulletin_url && (
+            <span>
+              [
+              <a
+                style={{ marginLeft: "1px", marginRight: "1px" }}
+                href={diff.bulletin_url}
+                aria-label="Update Bulletin Link"
+              >
+                <FontAwesomeIcon icon={faBullhorn} />
+              </a>
+              ]
+            </span>
+          )}
         </p>
       ))}
     </>

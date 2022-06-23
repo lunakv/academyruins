@@ -25,7 +25,7 @@ const CrArchive = () => {
   }, []);
 
   const chunks = metadata.reduce((all: Metadata[][], item, i) => {
-    const chunkIndex = Math.floor(i / 3); // 3 columns total
+    const chunkIndex = Math.floor(i / (metadata.length / 3)); // 3 columns total
     if (!all[chunkIndex]) {
       all[chunkIndex] = [];
     }

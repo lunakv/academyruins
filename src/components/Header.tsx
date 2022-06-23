@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => (
   <header>
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="dark" variant="dark" expand="md">
       <Container fluid="lg">
         <Navbar.Brand as={Link} to="/">
           Academy Ruins
