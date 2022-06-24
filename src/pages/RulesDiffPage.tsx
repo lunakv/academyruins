@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import ColumnDiffPage from "../components/ColumnDiff";
+import { useCallback, useEffect, useRef, useState } from "react";
+import ColumnDiff from "../components/ColumnDiff";
 import { Diff } from "../types";
 import { useNavigate, useParams } from "react-router-dom";
 import NavigationSidePanel from "../components/NavigationSidePanel";
 import Loading from "../components/Loading";
+import useSwipe from "../utils/useSwipe";
 
 async function fetch_latest_diff(sets: string) {
   const res = await fetch(
@@ -28,7 +29,7 @@ const RulesDiffPage = () => {
   const [diff, setDiff] = useState<ApiDiff | undefined>(undefined);
   const [isLoading, setLoading] = useState(true);
   const diffString = params.codes ?? "latest";
-  const navigate = useNavigate();
+  const navigate = useRef(useNavigate());
 
   const [error, setError] = useState(undefined);
   if (error) throw error;
@@ -43,33 +44,36 @@ const RulesDiffPage = () => {
       });
   }, [diffString]);
 
-  const handleMove = (prop: "prev" | "next") => {
-    if (!diff) return;
-    const sets = diff.nav[prop];
-    if (!sets) return;
-    navigate(`./../${sets.old}-${sets.new}`);
-    setDiff(undefined);
-  };
+  const handleMove = useCallback(
+    (prop: "prev" | "next") => {
+      if (!diff) return;
+      const sets = diff.nav[prop];
+      if (!sets) return;
+      navigate.current(`./../${sets.old}-${sets.new}`);
+      setDiff(undefined);
+    },
+    [diff]
+  );
 
-  const handlePrev = () => handleMove("prev");
-  const handleNext = () => handleMove("next");
+  const swipeFns = useSwipe(handleMove);
 
   return (
     <Loading isLoading={isLoading} className="mt-5">
       <NavigationSidePanel
         position="left"
         disabled={!diff?.nav.prev}
-        onClick={handlePrev}
+        onClick={() => handleMove("prev")}
       />
-      <ColumnDiffPage
+      <ColumnDiff
         changes={diff?.changes}
         oldName={diff?.source_set}
         newName={diff?.dest_set}
+        {...swipeFns}
       />
       <NavigationSidePanel
         position="right"
         disabled={!diff?.nav.next}
-        onClick={handleNext}
+        onClick={() => handleMove("next")}
       />
     </Loading>
   );
