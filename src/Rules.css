@@ -111,8 +111,17 @@ td {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    /* place either at the middle of the container margin, or 3% from the edge, whichever is closer to the edge */
-    --sidenav-offset: min(3%, calc((100vw - var(--container-size)) / 4 - 12px));
+
+    /* OKAY, here's what's going on:
+     - on smaller screens (1200 - ~1600), we want the arrows to be straight in the middle of the container margins
+      that's what the calc right here ↓ does
+     - But, once the display gets large enough, that doesn't look as good, so we move the arrow closer to the edge
+       specifically, 3% away ↓ from the edge
+     - HOWEVER, if the display is *too* big (4k or sth), arrows on the absolute edges can be too far from the page
+       that's why for very wide viewports, we just place the arrows 400px from the content ↓
+     could this be done more cleanly? possibly. will it be? almost definitely not. is it worth it? ¯\_(ツ)_/¯
+    */
+    --sidenav-offset: max(min(3vw, calc((100vw - var(--container-size)) / 4 - 12px)), calc((100vw - var(--container-size)) / 2 - 400px));
 }
 
 .side-navigation.sn-right {
