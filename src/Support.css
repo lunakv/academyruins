@@ -25,9 +25,10 @@ li a:hover {
     overflow: auto;
 }
 
-.link-container {
+.tab-content {
     height: 50vh;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: clip;
 }
 
 .docs-nav {

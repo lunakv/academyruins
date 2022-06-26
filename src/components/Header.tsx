@@ -25,7 +25,9 @@ const Header = () => (
             <Nav.Link as={Link} to="/archives">
               Archives
             </Nav.Link>
-            <Nav.Link href={`${process.env.REACT_APP_API_URL}/docs`>API</Nav.Link>
+            <Nav.Link href={`${process.env.REACT_APP_API_URL}/docs`}>
+              API
+            </Nav.Link>
             <Nav.Link as={Link} to="/about">
               About
             </Nav.Link>
