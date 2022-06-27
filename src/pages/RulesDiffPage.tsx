@@ -7,9 +7,7 @@ import Loading from "../components/Loading";
 import useSwipe from "../utils/useSwipe";
 
 async function fetch_latest_diff(sets: string) {
-  const res = await fetch(
-    `${process.env.REACT_APP_API_URL}/diff/cr/${encodeURIComponent(sets)}`
-  );
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/diff/cr/${encodeURIComponent(sets)}`);
   const json = await res.json();
   return json;
 }
@@ -59,22 +57,9 @@ const RulesDiffPage = () => {
 
   return (
     <Loading isLoading={isLoading} className="mt-5">
-      <NavigationSidePanel
-        position="left"
-        disabled={!diff?.nav.prev}
-        onClick={() => handleMove("prev")}
-      />
-      <ColumnDiff
-        changes={diff?.changes}
-        oldName={diff?.source_set}
-        newName={diff?.dest_set}
-        {...swipeFns}
-      />
-      <NavigationSidePanel
-        position="right"
-        disabled={!diff?.nav.next}
-        onClick={() => handleMove("next")}
-      />
+      <NavigationSidePanel position="left" disabled={!diff?.nav.prev} onClick={() => handleMove("prev")} />
+      <ColumnDiff changes={diff?.changes} oldName={diff?.source_set} newName={diff?.dest_set} {...swipeFns} />
+      <NavigationSidePanel position="right" disabled={!diff?.nav.next} onClick={() => handleMove("next")} />
     </Loading>
   );
 };

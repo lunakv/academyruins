@@ -10,8 +10,8 @@ const ArchivesPage = () => (
     <div className="text-center mb-4">
       <h2>Old Diffs</h2>
       <p>
-        Previous diffs of the various docs. These are mostly preserved for
-        people who are interested in tracing the history of the tournament docs.
+        Previous diffs of the various docs. These are mostly preserved for people who are interested in tracing the
+        history of the tournament docs.
       </p>
     </div>
     <Row>
@@ -38,17 +38,10 @@ const ArchivesPage = () => (
 
     <div className="text-center">
       <h2>Raw Documents</h2>
-      <p>
-        Not interested in the changes and just want the docs in their pure,
-        unadulterated forms? Look no further.
-      </p>
+      <p>Not interested in the changes and just want the docs in their pure, unadulterated forms? Look no further.</p>
     </div>
 
-    <Tabs
-      defaultActiveKey="cr"
-      variant="tabs"
-      className="nav-justified bg-dark"
-    >
+    <Tabs defaultActiveKey="cr" variant="tabs" className="nav-justified bg-dark">
       <Tab eventKey="cr" title="CR">
         <CrArchive />
       </Tab>

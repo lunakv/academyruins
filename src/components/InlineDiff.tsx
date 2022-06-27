@@ -15,9 +15,7 @@ const InlineDiffPage = ({ title, data }: Props) => (
       {data.map((section) => (
         <Accordion.Item eventKey={section.code}>
           <Accordion.Header>{section.title}</Accordion.Header>
-          <Accordion.Body>
-            {section.body /* TODO properly display section */}
-          </Accordion.Body>
+          <Accordion.Body>{section.body /* TODO properly display section */}</Accordion.Body>
         </Accordion.Item>
       ))}
     </Accordion>

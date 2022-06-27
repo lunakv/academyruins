@@ -20,10 +20,7 @@ function App() {
           <Route path="/archives" element={<ArchivesPage />} />
           <Route path="/diff/cr/:codes" element={<RulesDiffPage />} />
           <Route path="/preview" element={<PreviewPage />} />
-          <Route
-            path="*"
-            element={<ErrorPage message={"This page does not exist."} />}
-          />
+          <Route path="*" element={<ErrorPage message={"This page does not exist."} />} />
           {/* TODO doc diff routes */}
         </Routes>
       </ErrorBoundary>

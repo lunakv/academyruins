@@ -31,19 +31,12 @@ const PreviewPage = () => {
   return (
     <Row>
       <Col xs={12}>
-        <ColumnDiff
-          oldName={data.source_set}
-          newName={"???"}
-          changes={data.changes}
-        />
+        <ColumnDiff oldName={data.source_set} newName={"???"} changes={data.changes} />
       </Col>
       <Col xs={12}>
         <Button onClick={() => setShowModal(true)}>Confirm</Button>
       </Col>
-      <PreviewConfirmModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-      />
+      <PreviewConfirmModal show={showModal} onHide={() => setShowModal(false)} />
     </Row>
   );
 };

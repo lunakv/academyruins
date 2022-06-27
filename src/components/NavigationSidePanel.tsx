@@ -16,11 +16,7 @@ interface Props {
   onClick: MouseEventHandler;
 }
 
-const NavigationSidePanel = ({
-  position,
-  disabled = false,
-  onClick,
-}: Props) => {
+const NavigationSidePanel = ({ position, disabled = false, onClick }: Props) => {
   const positionValue = Position[position];
 
   let icon;

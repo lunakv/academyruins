@@ -44,22 +44,17 @@ class SameText extends TextBlock {
   }
 }
 
-interface ChangeConstructor<T> extends ConstructorOf<T> {
-  regex: RegExp;
+abstract class Change extends TextBlock {
+  static readonly regex: RegExp = /<<<<(.*?)>>>>/;
 }
 
-abstract class Change extends TextBlock {}
-
 class Addition extends Change {
-  static readonly regex: RegExp = /new_start (.*?) new_end/;
-
   toJsx() {
     return this.wrapWithSpan("new");
   }
 }
 
 class Removal extends Change {
-  static readonly regex = /old_start (.*?) old_end/;
   toJsx() {
     return this.wrapWithSpan("old");
   }
@@ -80,20 +75,15 @@ class DeletedRule extends TextBlock {
 const oldRegex = /old_start (.*?) old_end/;
 const newRegex = /new_start (.*?) new_end/;
 
-function detectChanges<T extends Change>(
-  ruleText: string,
-  regex: RegExp,
-  type: ChangeConstructor<T>
-): TextBlock[] {
-  const split = ruleText.split(type.regex);
+function detectChanges<T extends Change>(ruleText: string, regex: RegExp, type: ConstructorOf<T>): TextBlock[] {
+  const split = ruleText.split(Change.regex);
 
   // every odd index is a separator
   return split.map((e, i) => (i % 2 === 1 ? new type(e) : new SameText(e)));
 }
 
 function prettifySubtypes(text: TextBlock[], old: boolean): Block[] {
-  const regex =
-    /^.+these subtypes are called (.+ types)\.|^.+(Ability words).+entries in the Comprehensive Rules./;
+  const regex = /^.+these subtypes are called (.+ types)\.|^.+(Ability words).+entries in the Comprehensive Rules./;
 
   const match = text[0].toString().match(regex);
   if (!match) return text;
@@ -104,21 +94,12 @@ function prettifySubtypes(text: TextBlock[], old: boolean): Block[] {
   const retVal = [new SameText(match[0]), new JsxBlock(<br />)];
 
   if (changes.length === 0) {
-    retVal.push(
-      new SameText(
-        `No ${matchName} were ${old ? "removed" : "added"} in this update.`
-      )
-    );
+    retVal.push(new SameText(`No ${matchName} were ${old ? "removed" : "added"} in this update.`));
   } else {
     // the changes include a trailing comma, hence the slice
     const changeList = changes.map((c) => c.toString().slice(0, -1)).join(", ");
     retVal.push(
-      ...[
-        new SameText(
-          `The ${old ? "old" : "new"} ${matchName} this update are: `
-        ),
-        changes[0].cloneWith(changeList),
-      ]
+      ...[new SameText(`The ${old ? "old" : "new"} ${matchName} this update are: `), changes[0].cloneWith(changeList)]
     );
   }
 

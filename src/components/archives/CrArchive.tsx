@@ -7,14 +7,12 @@ async function fetchMetadata() {
   return json.data;
 }
 
-const fileToUrl = (name: string) =>
-  `${process.env.REACT_APP_API_URL}/files/cr/${encodeURIComponent(name)}`;
+const itemToUrl = (item: Metadata) => `${process.env.REACT_APP_API_URL}/file/cr/${encodeURIComponent(item.set_code)}`;
 
 interface Metadata {
   creation_day: string;
   set_code: string;
   set_name: string;
-  file_name: string;
 }
 
 const CrArchive = () => {
@@ -43,7 +41,7 @@ const CrArchive = () => {
                 <i className={`ss ss-${item.set_code.toLowerCase()}`} />{" "}
               </Col>
               <Col xs={11} className="ps-0">
-                <a href={fileToUrl(item.file_name)}>{item.set_name}</a>
+                <a href={itemToUrl(item)}>{item.set_name}</a>
               </Col>
             </Row>
           ))}

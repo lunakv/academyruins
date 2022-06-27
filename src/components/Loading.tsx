@@ -5,11 +5,7 @@ interface Props extends React.ComponentPropsWithoutRef<"div"> {
   isLoading: boolean;
 }
 
-const Loading = ({
-  isLoading,
-  children,
-  ...props
-}: React.PropsWithChildren<Props>) => {
+const Loading = ({ isLoading, children, ...props }: React.PropsWithChildren<Props>) => {
   props.className ??= "";
   props.className += " text-center";
 

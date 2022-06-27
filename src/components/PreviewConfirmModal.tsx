@@ -17,16 +17,13 @@ const PreviewConfirmModal = ({ show, onHide }: Props) => {
   const handleSubmit = async () => {
     const body = { name, code, bulletin };
     const token = encodeURIComponent(pwd);
-    const resp = await fetch(
-      `${process.env.REACT_APP_API_URL}/admin/confirm/cr?token=${token}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-    );
+    const resp = await fetch(`${process.env.REACT_APP_API_URL}/admin/confirm/cr?token=${token}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
     setResponse(resp.status + "\n\n" + (await resp.text()));
   };
 
@@ -38,35 +35,19 @@ const PreviewConfirmModal = ({ show, onHide }: Props) => {
       <Modal.Body>
         <Form.Group>
           <Form.Label>Set Name</Form.Label>
-          <Form.Control
-            type="input"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <Form.Control type="input" value={name} onChange={(e) => setName(e.target.value)} />
         </Form.Group>
         <Form.Group>
           <Form.Label>Set Code</Form.Label>
-          <Form.Control
-            type="input"
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-          />
+          <Form.Control type="input" value={code} onChange={(e) => setCode(e.target.value)} />
         </Form.Group>
         <Form.Group>
           <Form.Label>Update Bulletin URL</Form.Label>
-          <Form.Control
-            type="input"
-            value={bulletin}
-            onChange={(e) => setBulletin(e.target.value)}
-          />
+          <Form.Control type="input" value={bulletin} onChange={(e) => setBulletin(e.target.value)} />
         </Form.Group>
         <Form.Group>
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            value={pwd}
-            onChange={(e) => setPwd(e.target.value)}
-          />
+          <Form.Control type="password" value={pwd} onChange={(e) => setPwd(e.target.value)} />
         </Form.Group>
         <hr />
         <textarea readOnly value={response} />
