@@ -3,7 +3,6 @@ import { Col, Row } from "react-bootstrap";
 
 interface Metadata {
   creation_day: string;
-  file_name: string;
 }
 
 type DocKind = "mtr" | "ipg";
@@ -14,8 +13,8 @@ async function fetchMetadata(kind: DocKind) {
   return json.data;
 }
 
-function fileToUrl(fileName: string, kind: DocKind) {
-  return `${process.env.REACT_APP_API_URL}/static/raw_docs/${kind}/${fileName}`;
+function fileToUrl(date: string, kind: DocKind) {
+  return `${process.env.REACT_APP_API_URL}/file/${kind}/${date}`;
 }
 
 const PolicyDocArchive = ({ kind }: { kind: DocKind }) => {
@@ -40,7 +39,7 @@ const PolicyDocArchive = ({ kind }: { kind: DocKind }) => {
         <Col md={4}>
           {chunk.map((item) => (
             <div>
-              <a href={fileToUrl(item.file_name, kind)}>
+              <a href={fileToUrl(item.creation_day, kind)}>
                 {new Date(item.creation_day).toLocaleDateString("en-GB", {
                   day: "numeric",
                   month: "short",
