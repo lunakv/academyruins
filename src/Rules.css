@@ -4,7 +4,7 @@ th {
     text-shadow: 1px 1px var(--black);
     font-size: 1.728rem;
     border-radius: 0 2rem 0 2rem;
-    padding: 1rem;
+    padding: 1rem 0;
 }
 
 tr {
