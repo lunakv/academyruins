@@ -1,117 +1,125 @@
-@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Montserrat:wght@400;500;700;800;900&family=Libre+Baskerville&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Montserrat:wght@400;500;700;800;900&family=Libre+Baskerville&display=swap");
 
 :root {
-    --gray: #A6A99D;
-    --black: #150b00;
-    --light-green: #C4D3CA;
-    --green: #315c2b;
-    --light-blue: #B3CEEA;
-    --blue: #0E68AB;
-    --light-red: #EB9F82;
-    --red: #5A1807;
-    --cream: #F7DD72;
-    --white: #F9FAF4;
+  --gray: #a6a99d;
+  --black: #150b00;
+  --light-green: #c4d3ca;
+  --green: #315c2b;
+  --light-blue: #b3ceea;
+  --blue: #0e68ab;
+  --light-red: #eb9f82;
+  --red: #5a1807;
+  --cream: #f7dd72;
+  --white: #f9faf4;
 
-    --bs-dark-rgb: 25, 46, 57;
+  --bs-dark-rgb: 25, 46, 57;
 }
 
 .offset {
-    margin-top: 12%;
+  margin-top: 12%;
 }
 
 hr {
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 nav a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-h1, h2, h3, h4, h5 {
-    font-family: 'Libre Baskerville', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Libre Baskerville", sans-serif;
 }
 
-h2 {font-size: 2.074rem;}
+h2 {
+  font-size: 2.074rem;
+}
 
-h3 {font-size: 1.728rem;}
+h3 {
+  font-size: 1.728rem;
+}
 
-h4 {font-size: 1.44rem;}
+h4 {
+  font-size: 1.44rem;
+}
 
-h5 {font-size: 1.2rem;}
+h5 {
+  font-size: 1.2rem;
+}
 
 .navbar-dark .navbar-brand {
-    font-family: 'IM Fell English SC', cursive;
-    color: var(--cream) !important;
+  font-family: "IM Fell English SC", serif;
+  color: var(--cream) !important;
 }
 
 .navbar-dark .navbar-brand:hover {
-    color: var(--cream);
+  color: var(--cream);
 }
 
 .navbar-dark .navbar-nav a.nav-link {
-    color: var(--cream);
+  color: var(--cream);
 }
 
 .nav .nav-item .nav-link:not(.active) {
-    color: var(--cream);
+  color: var(--cream);
 }
 
 .navbar-dark .nav-link:hover {
-    color: var(--white);
+  color: var(--white);
 }
 
 .navbar-dark .navbar-toggler {
-    color: var(--cream);
-    border-color: var(--white);
-    font-size: 1em;
+  color: var(--cream);
+  border-color: var(--white);
+  font-size: 1em;
 }
 
 .navbar-dark {
-    background-color: #192E39;
+  background-color: #192e39;
 }
-
 
 .dropdown {
-    list-style-type: none;
+  list-style-type: none;
 }
 .dropdown-menu a.dropdown-item {
-    background-color: #343a40;
-    color: var(--cream);
+  background-color: #343a40;
+  color: var(--cream);
 }
 
 a {
-    color: #004ba1;
+  color: #004ba1;
 }
-
 
 /* get the dirty, 'noisy' background */
 body {
-    background: linear-gradient(90deg, #eed 0%, #ffe 10%, #ffe 90%, #eed 100%);
-    font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(90deg, #eed 0%, #ffe 10%, #ffe 90%, #eed 100%);
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen {
-
 }
 
 .navbar-dark .navbar-brand {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 651px) {
-
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -126,26 +134,16 @@ body {
 @media only screen and (min-width: 1200px) {
 }
 
-.navbar-toggler-icon{
-    font-size: 2em;
+.navbar-toggler-icon {
+  font-size: 2em;
 }
 
-
 .nav-tabs {
-    font-size:1.728rem;
-    color: var(--cream);
-    font-family:"Libre Baskerville", sans-serif;
+  font-size: 1.728rem;
+  color: var(--cream);
+  font-family: "Libre Baskerville", sans-serif;
 }
 
 .nav-link.active {
-    background-color: var(--cream);
-    color: #343a40;
-}
-
-a.nav-link {
-    color: var(--cream);
-}
-
-a.nav-link:hover {
-    color: var(--white);
+  color: var(--cream) !important;
 }
