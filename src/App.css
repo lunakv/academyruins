@@ -13,11 +13,14 @@
   --white: #f9faf4;
 
   --bs-dark-rgb: 25, 46, 57;
+  --bg: rgb(var(--bs-dark-rgb));
 }
 
 .offset {
   margin-top: 12%;
 }
+
+
 
 hr {
   border: 0;
@@ -76,6 +79,10 @@ h5 {
 
 .nav .nav-item .nav-link:not(.active) {
   color: var(--cream);
+}
+
+[role=tablist] li.nav-item .nav-link.active{
+  color: var(--bg);
 }
 
 .navbar-dark .nav-link:hover {
@@ -142,8 +149,4 @@ body {
   font-size: 1.728rem;
   color: var(--cream);
   font-family: "Libre Baskerville", sans-serif;
-}
-
-.nav-link.active {
-  color: var(--cream) !important;
 }
