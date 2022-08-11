@@ -15,24 +15,10 @@ const AboutPage = () => (
     </p>
 
     <p>
-      Otherwise—for suggestions, more general feedback, etc.—reach out on Twitter{" "}
+      Otherwise—for suggestions, more general feedback, etc.— feel free to reach out on Twitter{" "}
       <a href="https://twitter.com/just_vaasa">@just_vaasa</a>, IRC (vaasa on Libera.Chat), or through the Judge Academy
       Discord.
     </p>
-
-    <p>Special thanks:</p>
-    <ul>
-      <li>
-        <b>Jorge Requesens</b> for providing a massive chunk of the archived tournament docs
-      </li>
-      <li>
-        <b>Arttu Kaipiainen</b> for helping me track down bugs
-      </li>
-      <li>
-        <b>Petr Hudeček</b> for having a <i>giant</i> block of CRs, IPGs, and MTRs available
-      </li>
-      <li>ALL the lovely folks who have donated to keep this site online. ♥</li>
-    </ul>
     <hr />
     <p className="text-center text-secondary">
       Set symbol images are provided by Keyrune and copyright Wizards of the Coast. This site is in no way affiliated

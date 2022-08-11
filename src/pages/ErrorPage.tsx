@@ -1,21 +1,23 @@
 import "../Support.css";
 import { Container } from "react-bootstrap";
-import { useSearchParams } from "react-router-dom";
 
 interface Props {
   message?: string;
 }
 
 const ErrorPage = ({ message }: Props) => {
-  const [searchParams] = useSearchParams();
-  message ??= searchParams.get("message") ?? "An unidentified error occurred";
+  message ??= "An unidentified error occurred";
 
   return (
-    <Container fluid="lg" className="offset text-center">
-      <p className="cursive">None can find what hasn’t been lost.</p>
+    <Container fluid="lg" className="mt-5 text-center">
+      <h2>An Unexpected Error Occurred</h2>
       <hr />
       <p>
         <b>{message}</b>
+      </p>
+      <p className="mt-3">
+        Try refreshing the page. If the issue persists, please file a report on{" "}
+        <a href="https://github.com/lunakv/academyruins/issues">GitHub</a>.
       </p>
     </Container>
   );
