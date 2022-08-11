@@ -8,12 +8,15 @@ import ErrorPage from "./pages/ErrorPage";
 import RulesDiffPage from "./pages/RulesDiffPage";
 import PreviewPage from "./pages/PreviewPage";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { useState } from "react";
 
 function App() {
+  const [hasError, setError] = useState(false);
+
   return (
     <div className="App">
-      <Header />
-      <ErrorBoundary>
+      <Header onClick={() => setError(false)} />
+      <ErrorBoundary hasError={hasError} onError={() => setError(true)}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/about" element={<AboutPage />} />

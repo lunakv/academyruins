@@ -2,22 +2,30 @@ import React from "react";
 import ErrorPage from "../pages/ErrorPage";
 
 interface IState {
-  hasError: boolean;
   errorMessage?: string;
 }
 
-class ErrorBoundary extends React.Component<React.PropsWithChildren, IState> {
-  constructor(props: React.PropsWithChildren) {
+interface IProps {
+  hasError: boolean;
+  onError: () => void;
+}
+
+class ErrorBoundary extends React.Component<React.PropsWithChildren<IProps>, IState> {
+  constructor(props: React.PropsWithChildren<IProps>) {
     super(props);
-    this.state = { hasError: false, errorMessage: undefined };
+    this.state = { errorMessage: undefined };
   }
 
   static getDerivedStateFromError(error: Error) {
-    return { hasError: true, errorMessage: error.message };
+    return { errorMessage: error.message };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.props.onError();
   }
 
   render() {
-    if (this.state.hasError) {
+    if (this.props.hasError) {
       return <ErrorPage message={this.state.errorMessage} />;
     }
     return this.props.children;
