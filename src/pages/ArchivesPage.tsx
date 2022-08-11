@@ -41,7 +41,7 @@ const ArchivesPage = () => (
       <p>Not interested in the changes and just want the docs in their pure, unadulterated forms? Look no further.</p>
     </div>
 
-    <Tabs defaultActiveKey="cr" variant="tabs" className="nav-justified bg-dark">
+    <Tabs defaultActiveKey="cr" variant="tabs" className="nav-justified bg-dark rounded-top">
       <Tab eventKey="cr" title="CR">
         <CrArchive />
       </Tab>
