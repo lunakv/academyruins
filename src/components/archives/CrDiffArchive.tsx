@@ -29,7 +29,7 @@ const CrDiffArchive = () => {
   }, []);
 
   return (
-    <ChunkedList cols={3}>
+    <ChunkedList cols={2}>
       {metadata.map((diff) => (
         <div>
           <Link to={diffToUrl(diff)}>{diff.dest_name}</Link>{" "}
