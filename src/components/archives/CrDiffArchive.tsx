@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBullhorn } from "@fortawesome/free-solid-svg-icons/faBullhorn";
+import ChunkedList from "../ChunkedList";
 
 async function fetchMetadata() {
   const res = await fetch(`${process.env.REACT_APP_API_URL}/metadata/cr-diffs`);
@@ -28,12 +29,12 @@ const CrDiffArchive = () => {
   }, []);
 
   return (
-    <>
+    <ChunkedList cols={3}>
       {metadata.map((diff) => (
-        <p>
+        <div>
           <Link to={diffToUrl(diff)}>{diff.dest_name}</Link>{" "}
           {diff.bulletin_url && (
-            <span>
+            <span className="text-nowrap">
               [
               <a
                 style={{ marginLeft: "1px", marginRight: "1px" }}
@@ -45,9 +46,9 @@ const CrDiffArchive = () => {
               ]
             </span>
           )}
-        </p>
+        </div>
       ))}
-    </>
+    </ChunkedList>
   );
 };
 

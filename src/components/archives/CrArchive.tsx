@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import ChunkedList from "../ChunkedList";
 
 async function fetchMetadata() {
   const res = await fetch(`${process.env.REACT_APP_API_URL}/metadata/cr`);
@@ -22,32 +23,19 @@ const CrArchive = () => {
     fetchMetadata().then(setMetadata);
   }, []);
 
-  const chunks = metadata.reduce((all: Metadata[][], item, i) => {
-    const chunkIndex = Math.floor(i / (metadata.length / 3)); // 3 columns total
-    if (!all[chunkIndex]) {
-      all[chunkIndex] = [];
-    }
-    all[chunkIndex].push(item);
-    return all;
-  }, []);
-
   return (
-    <Row>
-      {chunks.map((chunk) => (
-        <Col md={4}>
-          {chunk.map((item) => (
-            <Row>
-              <Col xs={1} className="pe-0">
-                <i className={`ss ss-${item.set_code.toLowerCase()}`} />{" "}
-              </Col>
-              <Col xs={11} className="ps-0">
-                <a href={itemToUrl(item)}>{item.set_name}</a>
-              </Col>
-            </Row>
-          ))}
-        </Col>
+    <ChunkedList cols={3}>
+      {metadata.map((item) => (
+        <Row>
+          <Col xs={1} className="pe-0">
+            <i className={`ss ss-${item.set_code.toLowerCase()}`} />{" "}
+          </Col>
+          <Col xs={11} className="ps-0">
+            <a href={itemToUrl(item)}>{item.set_name}</a>
+          </Col>
+        </Row>
       ))}
-    </Row>
+    </ChunkedList>
   );
 };
 

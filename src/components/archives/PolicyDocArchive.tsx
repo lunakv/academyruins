@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import ChunkedList from "../ChunkedList";
 
 interface Metadata {
   creation_day: string;
@@ -24,33 +24,20 @@ const PolicyDocArchive = ({ kind }: { kind: DocKind }) => {
     fetchMetadata(kind).then(setMetadata);
   }, [kind]);
 
-  const chunks = metadata.reduce((all: Metadata[][], item, i) => {
-    const chunkIndex = Math.floor(i / (metadata.length / 3)); // 3 columns total
-    if (!all[chunkIndex]) {
-      all[chunkIndex] = [];
-    }
-    all[chunkIndex].push(item);
-    return all;
-  }, []);
-
   return (
-    <Row>
-      {chunks.map((chunk) => (
-        <Col md={4}>
-          {chunk.map((item) => (
-            <div>
-              <a href={fileToUrl(item.creation_day, kind)}>
-                {new Date(item.creation_day).toLocaleDateString("en-GB", {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })}
-              </a>
-            </div>
-          ))}
-        </Col>
+    <ChunkedList cols={3}>
+      {metadata.map((item) => (
+        <div>
+          <a href={fileToUrl(item.creation_day, kind)}>
+            {new Date(item.creation_day).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
+          </a>
+        </div>
       ))}
-    </Row>
+    </ChunkedList>
   );
 };
 

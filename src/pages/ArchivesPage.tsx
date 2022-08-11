@@ -1,5 +1,5 @@
 import "../Support.css";
-import { Col, Container, Row, Tab, Tabs } from "react-bootstrap";
+import { Container, Tab, Tabs } from "react-bootstrap";
 import CrArchive from "../components/archives/CrArchive";
 import CrDiffArchive from "../components/archives/CrDiffArchive";
 import PolicyDocArchive from "../components/archives/PolicyDocArchive";
@@ -14,25 +14,19 @@ const ArchivesPage = () => (
         history of the tournament docs.
       </p>
     </div>
-    <Row>
-      {/* TODO load these lists from db instead of hard-coding them */}
-      <Col md={4}>
-        <h3>CR</h3>
+    <Tabs defaultActiveKey="cr" variant="tabs" className="nav-justified bg-dark rounded-top">
+      <Tab title="CR" eventKey="cr">
         <CrDiffArchive />
-      </Col>
-
-      <Col md={4}>
-        <h3>IPG</h3>
+      </Tab>
+      <Tab title="IPG" eventKey="ipg">
         {/* TODO IPG diff archive */}
         <i>Coming soon!</i>
-      </Col>
-
-      <Col md={4}>
-        <h3>MTR</h3>
+      </Tab>
+      <Tab title="MTR" eventKey="mtr">
         {/* TODO MTR diff archive */}
         <i>Coming soon!</i>
-      </Col>
-    </Row>
+      </Tab>
+    </Tabs>
 
     <hr />
 
