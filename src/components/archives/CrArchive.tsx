@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import ChunkedList from "../ChunkedList";
+import Loading from "../Loading";
 
 async function fetchMetadata() {
   const res = await fetch(`${process.env.REACT_APP_API_URL}/metadata/cr`);
@@ -24,18 +25,20 @@ const CrArchive = () => {
   }, []);
 
   return (
-    <ChunkedList cols={3}>
-      {metadata.map((item) => (
-        <Row>
-          <Col xs={1} className="pe-0">
-            <i className={`ss ss-${item.set_code.toLowerCase()}`} />{" "}
-          </Col>
-          <Col xs={11} className="ps-0">
-            <a href={itemToUrl(item)}>{item.set_name}</a>
-          </Col>
-        </Row>
-      ))}
-    </ChunkedList>
+    <Loading isLoading={metadata.length === 0} className="mt-3">
+      <ChunkedList cols={3}>
+        {metadata.map((item) => (
+          <Row>
+            <Col xs={1} className="pe-0">
+              <i className={`ss ss-${item.set_code.toLowerCase()}`} />{" "}
+            </Col>
+            <Col xs={11} className="ps-0">
+              <a href={itemToUrl(item)}>{item.set_name}</a>
+            </Col>
+          </Row>
+        ))}
+      </ChunkedList>
+    </Loading>
   );
 };
 

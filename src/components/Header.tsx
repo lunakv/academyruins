@@ -24,10 +24,10 @@ const Header = ({ onClick }: Props) => {
                 <NavDropdown.Item as={linkTag} to="/diff/cr/latest">
                   Comprehensive Rules
                 </NavDropdown.Item>
-                <NavDropdown.Item as={linkTag} to="/diff/ipg">
+                <NavDropdown.Item as={linkTag} to="/diff/ipg" disabled>
                   Infraction Procedure Guide
                 </NavDropdown.Item>
-                <NavDropdown.Item as={linkTag} to="/diff/mtr">
+                <NavDropdown.Item as={linkTag} to="/diff/mtr" disabled>
                   Magic Tournament Rules
                 </NavDropdown.Item>
               </NavDropdown>

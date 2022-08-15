@@ -9,6 +9,7 @@ import RulesDiffPage from "./pages/RulesDiffPage";
 import PreviewPage from "./pages/PreviewPage";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { useState } from "react";
+import DiffDebugPage from "./pages/DiffDebugPage";
 
 function App() {
   const [hasError, setError] = useState(false);
@@ -23,6 +24,7 @@ function App() {
           <Route path="/archives" element={<ArchivesPage />} />
           <Route path="/diff/cr/:codes" element={<RulesDiffPage />} />
           <Route path="/preview" element={<PreviewPage />} />
+          <Route path="/debug" element={<DiffDebugPage />} />
           <Route path="*" element={<ErrorPage message={"This page does not exist."} />} />
           {/* TODO doc diff routes */}
         </Routes>

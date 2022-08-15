@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ChunkedList from "../ChunkedList";
+import Loading from "../Loading";
 
 interface Metadata {
   creation_day: string;
@@ -25,19 +26,21 @@ const PolicyDocArchive = ({ kind }: { kind: DocKind }) => {
   }, [kind]);
 
   return (
-    <ChunkedList cols={3}>
-      {metadata.map((item) => (
-        <div>
-          <a href={fileToUrl(item.creation_day, kind)}>
-            {new Date(item.creation_day).toLocaleDateString("en-GB", {
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-            })}
-          </a>
-        </div>
-      ))}
-    </ChunkedList>
+    <Loading isLoading={metadata.length === 0} className="mt-3">
+      <ChunkedList cols={3}>
+        {metadata.map((item) => (
+          <div>
+            <a href={fileToUrl(item.creation_day, kind)}>
+              {new Date(item.creation_day).toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              })}
+            </a>
+          </div>
+        ))}
+      </ChunkedList>
+    </Loading>
   );
 };
 
