@@ -1,0 +1,99 @@
+.navigation-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: auto;
+    align-items: center;
+}
+
+.navigation .btn-link {
+    color: var(--gray);
+}
+
+.navigation .btn-link:disabled {
+    display: none !important;
+}
+
+@media only screen and (max-width: 1199px) {
+    .navigation-container {
+        bottom: 0;
+        background-color: var(--bg);
+    }
+
+    .navigation-placeholder {
+        padding-bottom: 3rem;
+    }
+
+    .navigation {
+        /*border: gray 2px solid;*/
+        text-align: center;
+    }
+
+    .navigation.navigation-left {
+        border-right-width: 1px;
+    }
+
+    .navigation.navigation-right {
+        border-left-width: 1px;
+    }
+
+    .navigation .btn-link {
+        /*width: 100%;*/
+        /*height: 100%;*/
+        font-size: 2em;
+        padding-top: 0;
+        padding-bottom: 0;
+        color: var(--cream);
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .navigation-container {
+        bottom: 50%;
+        transform: translateY(-50%);
+    }
+
+    .navigation-placeholder {
+        display: none;
+    }
+
+    .navigation {
+        /* OKAY, here's what's going on:
+           - on smaller screens (1200 - ~1600), we want the arrows to be straight in the middle of the container margins
+            that's what the calc right here ↓ does
+           - But, once the display gets large enough, that doesn't look as good, so we move the arrow closer to the edge
+             specifically, 3% away ↓ from the edge
+           - HOWEVER, if the display is *too* big (4k or sth), arrows on the absolute edges can be too far from the page.
+             That's why for very wide viewports, we just place the arrows 400px from the content ↓
+           could this be done more cleanly? possibly. will it be? almost definitely not. is it worth it? ¯\_(ツ)_/¯
+          */
+        --sidenav-offset: max(min(3vw, calc((100vw - var(--container-size)) / 4 - 12px)), calc((100vw - var(--container-size)) / 2 - 400px));
+    }
+
+    .navigation {
+        display: block;
+        --container-size: 1140px;
+        position: fixed;
+        /*top: 50%;*/
+        /*transform: translateY(-50%);*/
+    }
+
+    .navigation.navigation-right {
+        right: var(--sidenav-offset);
+
+    }
+
+    .navigation.navigation-left {
+        left: var(--sidenav-offset);
+    }
+
+    .navigation .btn-link {
+        font-size: 3em;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .navigation {
+        --container-size: 1320px;
+    }
+}

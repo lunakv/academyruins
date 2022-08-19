@@ -5,20 +5,15 @@ import "../Rules.css";
 import { Container } from "react-bootstrap";
 import ColumnDiffRow from "./ColumnDiffRow";
 import { Diff } from "../types";
-import React, { TouchEventHandler } from "react";
 
 interface Props {
   oldName?: string;
   newName?: string;
   changes?: Diff[];
-  onTouchStart?: TouchEventHandler;
-  onTouchMove?: TouchEventHandler;
-  onTouchEnd?: TouchEventHandler;
-  onTouchCancel?: TouchEventHandler;
 }
 
-const ColumnDiff = ({ oldName, newName, changes = [], ...props }: Props) => (
-  <Container fluid="lg" {...props}>
+const ColumnDiff = ({ oldName, newName, changes = [] }: Props) => (
+  <Container fluid="lg">
     <table className="diff-table">
       <thead>
         <tr>

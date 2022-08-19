@@ -2,9 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import ColumnDiff from "../components/ColumnDiff";
 import { Diff } from "../types";
 import { useNavigate, useParams } from "react-router-dom";
-import NavigationSidePanel from "../components/NavigationSidePanel";
 import Loading from "../components/Loading";
-import useSwipe from "../utils/useSwipe";
+import NavigationPanel from "../components/NavigationPanel";
 
 async function fetch_latest_diff(sets: string) {
   const res = await fetch(`${process.env.REACT_APP_API_URL}/diff/cr/${encodeURIComponent(sets)}`);
@@ -53,13 +52,10 @@ const RulesDiffPage = () => {
     [diff]
   );
 
-  const swipeFns = useSwipe(handleMove);
-
   return (
     <Loading isLoading={isLoading} className="mt-5">
-      <NavigationSidePanel position="left" disabled={!diff?.nav.prev} onClick={() => handleMove("prev")} />
-      <ColumnDiff changes={diff?.changes} oldName={diff?.source_set} newName={diff?.dest_set} {...swipeFns} />
-      <NavigationSidePanel position="right" disabled={!diff?.nav.next} onClick={() => handleMove("next")} />
+      <ColumnDiff changes={diff?.changes} oldName={diff?.source_set} newName={diff?.dest_set} />
+      <NavigationPanel onClick={handleMove} leftDisabled={!diff?.nav.prev} rightDisabled={!diff?.nav.next} />
     </Loading>
   );
 };
