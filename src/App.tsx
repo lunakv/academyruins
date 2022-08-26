@@ -24,7 +24,7 @@ function App() {
           <Route path="/diff/cr/:codes" element={<RulesDiffPage />} />
           <Route path="/preview" element={<PreviewPage />} />
           <Route path="/debug" element={<DiffDebugPage />} />
-          <Route path="/" element={<Navigate to="/diff/cr/latest" />} />
+          <Route path="/" element={<Navigate to="/diff/cr/" />} />
           <Route path="*" element={<ErrorPage message={"This page does not exist."} />} />
           {/* TODO doc diff routes */}
         </Routes>
