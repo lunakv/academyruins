@@ -64,10 +64,10 @@
            - But, once the display gets large enough, that doesn't look as good, so we move the arrow closer to the edge
              specifically, 3% away ↓ from the edge
            - HOWEVER, if the display is *too* big (4k or sth), arrows on the absolute edges can be too far from the page.
-             That's why for very wide viewports, we just place the arrows 400px from the content ↓
+             That's why for very wide viewports, we just place the arrows 300px from the content ↓
            could this be done more cleanly? possibly. will it be? almost definitely not. is it worth it? ¯\_(ツ)_/¯
           */
-        --sidenav-offset: max(min(3vw, calc((100vw - var(--container-size)) / 4 - 12px)), calc((100vw - var(--container-size)) / 2 - 400px));
+        --sidenav-offset: max(min(3vw, calc((100vw - var(--container-size)) / 4 - 12px)), calc((100vw - var(--container-size)) / 2 - 300px));
     }
 
     .navigation {

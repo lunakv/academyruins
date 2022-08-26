@@ -1,4 +1,4 @@
-import "../Rules.css";
+import "../pages/RulesDiffPage.css";
 // TODO rules.js
 // TODO findRules()
 
