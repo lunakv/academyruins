@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import NavigationPanel from "../components/NavigationPanel";
 
-async function fetch_latest_diff(sets: string) {
+async function fetchDiff(sets: string) {
   const res = await fetch(`${process.env.REACT_APP_API_URL}/diff/cr/${encodeURIComponent(sets)}`);
   const json = await res.json();
   return json;
@@ -33,7 +33,7 @@ const RulesDiffPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch_latest_diff(diffString)
+    fetchDiff(diffString)
       .then(setDiff)
       .then(() => setLoading(false))
       .catch((e) => {

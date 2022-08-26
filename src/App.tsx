@@ -20,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/about" element={<AboutPage />} />
           <Route path="/archives" element={<ArchivesPage />} />
+          <Route path="/diff/cr" element={<RulesDiffPage />} />
           <Route path="/diff/cr/:codes" element={<RulesDiffPage />} />
           <Route path="/preview" element={<PreviewPage />} />
           <Route path="/debug" element={<DiffDebugPage />} />

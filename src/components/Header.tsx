@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, LinkProps } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -20,17 +20,9 @@ const Header = ({ onClick }: Props) => {
           <Navbar.Toggle aria-controls="header-nav" />
           <Navbar.Collapse id="header-nav">
             <Nav className="me-auto">
-              <NavDropdown title="Diffs" menuVariant="dark" className="bg-dark">
-                <NavDropdown.Item as={linkTag} to="/diff/cr/latest">
-                  Comprehensive Rules
-                </NavDropdown.Item>
-                <NavDropdown.Item as={linkTag} to="/diff/ipg" disabled>
-                  Infraction Procedure Guide
-                </NavDropdown.Item>
-                <NavDropdown.Item as={linkTag} to="/diff/mtr" disabled>
-                  Magic Tournament Rules
-                </NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link as={linkTag} to="/diff/cr">
+                Diffs
+              </Nav.Link>
               <Nav.Link as={linkTag} to="/archives">
                 Archives
               </Nav.Link>
@@ -46,7 +38,7 @@ const Header = ({ onClick }: Props) => {
                 Donate
               </Nav.Link>
               <Nav.Link href="https://github.com/lunakv/academyruins/" target="_blank">
-                {/* @ts-ignore */}
+                {/* @ts-ignore brand icons have incompatible type definitions */}
                 <FontAwesomeIcon icon={faGithub} />
               </Nav.Link>
             </Nav>
