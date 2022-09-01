@@ -3,7 +3,6 @@ import { Container, Tab, Tabs } from "react-bootstrap";
 import CrArchive from "../components/archives/CrArchive";
 import CrDiffArchive from "../components/archives/CrDiffArchive";
 import PolicyDocArchive from "../components/archives/PolicyDocArchive";
-// TODO keyrune css
 
 const ArchivesPage = () => (
   <Container fluid="lg" className=" my-5">

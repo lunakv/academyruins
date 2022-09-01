@@ -1,5 +1,5 @@
 import "../Support.css";
-import "../Landing.css";
+import "./LandingPage.css";
 import { Container } from "react-bootstrap";
 
 const LandingPage = () => (

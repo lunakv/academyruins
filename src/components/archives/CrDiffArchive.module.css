@@ -1,0 +1,5 @@
+@media screen and (max-width: 1200px) {
+    .archive-link {
+        line-height: 1.75 !important;
+    }
+}

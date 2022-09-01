@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import ChunkedList from "../ChunkedList";
 import Loading from "../Loading";
+import SetIcon from "../SetIcon";
 
 async function fetchMetadata() {
   const res = await fetch(`${process.env.REACT_APP_API_URL}/metadata/cr`);
@@ -30,7 +31,7 @@ const CrArchive = () => {
         {metadata.map((item) => (
           <Row>
             <Col xs={1} className="pe-0">
-              <i className={`ss ss-${item.set_code.toLowerCase()}`} />{" "}
+              <SetIcon setCode={item.set_code} />
             </Col>
             <Col xs={11} className="ps-0">
               <a href={itemToUrl(item)}>{item.set_name}</a>
