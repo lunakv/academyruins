@@ -46,7 +46,7 @@ const RulesDiffPage = () => {
       if (!diff) return;
       const sets = diff.nav[prop];
       if (!sets) return;
-      navigate.current(`./../${sets.old}-${sets.new}`);
+      navigate.current(`/diff/cr/${sets.old}-${sets.new}`);
       setDiff(undefined);
     },
     [diff]

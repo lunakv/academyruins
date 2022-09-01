@@ -72,10 +72,7 @@ class DeletedRule extends TextBlock {
   }
 }
 
-const oldRegex = /old_start (.*?) old_end/;
-const newRegex = /new_start (.*?) new_end/;
-
-function detectChanges<T extends Change>(ruleText: string, regex: RegExp, type: ConstructorOf<T>): TextBlock[] {
+function detectChanges<T extends Change>(ruleText: string, type: ConstructorOf<T>): TextBlock[] {
   const split = ruleText.split(Change.regex);
 
   // every odd index is a separator
@@ -118,8 +115,8 @@ export function transformRuleText(
   let newChanges = [new SameText("")];
 
   if (oldText && newText) {
-    oldChanges = detectChanges(oldText, oldRegex, Removal);
-    newChanges = detectChanges(newText, newRegex, Addition);
+    oldChanges = detectChanges(oldText, Removal);
+    newChanges = detectChanges(newText, Addition);
   } else if (newText) {
     newChanges = [new NewRule(newText)];
   } else if (oldText) {
