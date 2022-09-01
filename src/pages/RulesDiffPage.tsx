@@ -31,6 +31,7 @@ const RulesDiffPage = () => {
   const [error, setError] = useState(undefined);
   if (error) throw error;
 
+  // load diff when diffString changes
   useEffect(() => {
     setLoading(true);
     fetchDiff(diffString)
@@ -40,6 +41,13 @@ const RulesDiffPage = () => {
         setError(e);
       });
   }, [diffString]);
+
+  // scroll to hash after diff loads
+  useEffect(() => {
+    if (isLoading || !window.location.hash) return;
+    const id = window.location.hash.substring(1);
+    document.getElementById(id)?.scrollIntoView();
+  }, [isLoading]);
 
   const handleMove = useCallback(
     (prop: "prev" | "next") => {
