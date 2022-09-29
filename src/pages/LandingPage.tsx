@@ -1,25 +1,56 @@
 import "../Support.css";
 import "./LandingPage.css";
-import { Container } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { ReactComponent as DiffIcon } from "bootstrap-icons/icons/file-earmark-diff.svg";
+import { ReactComponent as ArchiveIcon } from "bootstrap-icons/icons/archive.svg";
+import { ReactComponent as GearIcon } from "bootstrap-icons/icons/gear.svg";
+import { ReactComponent as QuestionIcon } from "bootstrap-icons/icons/question-circle.svg";
+
+interface IconProps {
+  icon: JSX.Element;
+  description: string;
+}
+const LandingPageIcon = ({ icon, description }: IconProps) => (
+  <Row>
+    <Col xs={3} lg={12}>
+      {icon}
+    </Col>
+    <Col xs={9} lg={12} className="mt-lg-4 icon-desc">
+      {description}
+    </Col>
+  </Row>
+);
 
 const LandingPage = () => (
-  <Container fluid="lg">
-    <div id="landing-content" className="offset text-center">
-      <p className="cursive text-center">
-        <span id="first-line">Its secrets once wrought the greatest artifice ever known. </span>
-        <span id="second-line">Now crabs loot the rubble to decorate their shells.</span>
-      </p>
-      <hr />
-      <div id="welcome-text">
-        <p>
-          Academy Ruins is a Magic: the Gathering knowledge portal. Its primary purpose is hosting diffs of the various
-          Magic rules documents, specifically the Comprehensive Rules, the Magic Tournament Rules, and the Infraction
-          Procedure Guide. It also houses an API allowing programmatic access to those documents, as well as an archive
-          containing many of their old versions.
-        </p>
-      </div>
-    </div>
-  </Container>
+  <Row id="landing-wrapper" className="bg-dark text-cream text-lg-center">
+    <Col xs={12} id="landing-title" className="cursive text-center">
+      Academy Ruins
+    </Col>
+    <Col xs={12}>
+      <hr className="w-75 mx-auto" />
+    </Col>
+    <Col lg={3}>
+      <Link to="/diff/cr">
+        <LandingPageIcon icon={<DiffIcon />} description="Diffs" />
+      </Link>
+    </Col>
+    <Col lg={3}>
+      <Link to="/archives">
+        <LandingPageIcon icon={<ArchiveIcon />} description="Archives" />
+      </Link>
+    </Col>
+    <Col lg={3}>
+      <a href={process.env.REACT_APP_API_URL + "/docs"}>
+        <LandingPageIcon icon={<GearIcon />} description="API" />
+      </a>
+    </Col>
+    <Col lg={3}>
+      <Link to="/about">
+        <LandingPageIcon icon={<QuestionIcon />} description="About" />
+      </Link>
+    </Col>
+  </Row>
 );
 
 export default LandingPage;

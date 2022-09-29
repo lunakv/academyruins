@@ -20,6 +20,9 @@
   margin-top: 12vh;
 }
 
+.text-cream {
+  color: var(--cream);
+}
 
 
 hr {

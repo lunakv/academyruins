@@ -13,3 +13,26 @@
     margin-right: auto;
   }
 }
+
+#landing-wrapper {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+
+#landing-title {
+  margin-top: 30vh;
+  font-size: 4.5em;
+}
+
+#landing-wrapper .bi {
+  height: 3em;
+  width: 3em;
+  color: var(--cream);
+}
+
+#landing-wrapper .icon-desc {
+  font-size: 1.5em;
+  color: var(--cream);
+  font-family: "IM Fell English", serif;
+}

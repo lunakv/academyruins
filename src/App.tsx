@@ -9,13 +9,13 @@ import PreviewPage from "./pages/PreviewPage";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { useState } from "react";
 import DiffDebugPage from "./pages/DiffDebugPage";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   const [hasError, setError] = useState(false);
 
   return (
     <div className="App">
-      <Header onClick={() => setError(false)} />
       <ErrorBoundary hasError={hasError} onError={() => setError(true)}>
         <Routes>
           <Route path="/about" element={<AboutPage />} />
@@ -24,7 +24,7 @@ function App() {
           <Route path="/diff/cr/:codes" element={<RulesDiffPage />} />
           <Route path="/preview" element={<PreviewPage />} />
           <Route path="/debug" element={<DiffDebugPage />} />
-          <Route path="/" element={<Navigate to="/diff/cr/" />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="*" element={<ErrorPage message={"This page does not exist."} />} />
           {/* TODO doc diff routes */}
         </Routes>
