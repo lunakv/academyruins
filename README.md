@@ -1,6 +1,6 @@
 # Academy Ruins
 
-Magic: the Gathering Knowledge Portal
+Magic: the Gathering Rules Library
 
 ## About
 
