@@ -23,35 +23,37 @@ const LandingPageIcon = ({ icon, description }: IconProps) => (
 );
 
 const LandingPage = () => (
-  <Row id="landing-wrapper" className="bg-dark text-cream text-md-center">
-    <Col xs={12} className="text-center">
-      <p id="landing-title">Academy Ruins</p>
-      <p id="landing-subtitle">Magic: The Gathering Rules Library</p>
-    </Col>
-    <Col xs={12}>
-      <hr className="w-75 mx-auto" />
-    </Col>
-    <Col md={3}>
-      <Link to="/diff/cr">
-        <LandingPageIcon icon={<DiffIcon />} description="Diffs" />
-      </Link>
-    </Col>
-    <Col md={3}>
-      <Link to="/archives">
-        <LandingPageIcon icon={<ArchiveIcon />} description="Archives" />
-      </Link>
-    </Col>
-    <Col md={3}>
-      <a href={process.env.REACT_APP_API_URL + "/docs"}>
-        <LandingPageIcon icon={<GearIcon />} description="API" />
-      </a>
-    </Col>
-    <Col md={3}>
-      <Link to="/about">
-        <LandingPageIcon icon={<QuestionIcon />} description="About" />
-      </Link>
-    </Col>
-  </Row>
+  <div id="landing-wrapper" className="bg-dark">
+    <Row id="landing-content" className="bg-dark text-cream text-md-center">
+      <Col xs={12} className="text-center">
+        <p id="landing-title">Academy Ruins</p>
+        <p id="landing-subtitle">Magic: The Gathering Rules Library</p>
+      </Col>
+      <Col xs={12}>
+        <hr className="w-75 mx-auto" />
+      </Col>
+      <Col md={3}>
+        <Link to="/diff/cr">
+          <LandingPageIcon icon={<DiffIcon />} description="Diffs" />
+        </Link>
+      </Col>
+      <Col md={3}>
+        <Link to="/archives">
+          <LandingPageIcon icon={<ArchiveIcon />} description="Archives" />
+        </Link>
+      </Col>
+      <Col md={3}>
+        <a href={process.env.REACT_APP_API_URL + "/docs"}>
+          <LandingPageIcon icon={<GearIcon />} description="API" />
+        </a>
+      </Col>
+      <Col md={3}>
+        <Link to="/about">
+          <LandingPageIcon icon={<QuestionIcon />} description="About" />
+        </Link>
+      </Col>
+    </Row>
+  </div>
 );
 
 export default LandingPage;

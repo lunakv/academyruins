@@ -1,5 +1,11 @@
 #landing-wrapper {
-  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+#landing-content {
+  width: 100%;
+  max-width: 2000px;
   height: 100vh;
   margin: 0;
   font-family: "IM Fell English", serif;
@@ -30,13 +36,13 @@
 
 
 
-#landing-wrapper .bi {
+#landing-content .bi {
   height: 3em;
   width: 3em;
   color: var(--cream);
 }
 
-#landing-wrapper .icon-desc {
+#landing-content .icon-desc {
   font-size: 1.5em;
   color: var(--cream);
   font-family: "IM Fell English", serif;
