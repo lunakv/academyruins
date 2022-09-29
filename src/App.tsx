@@ -23,9 +23,11 @@ function App() {
     );
   }
 
+  const errBoundaryPage = (message: string | undefined) => withHeader(<ErrorPage message={message} />);
+
   return (
     <div className="App">
-      <ErrorBoundary hasError={hasError} onError={() => setError(true)}>
+      <ErrorBoundary hasError={hasError} onError={() => setError(true)} errorComponent={errBoundaryPage}>
         <Routes>
           <Route path="/about" element={withHeader(<AboutPage />)} />
           <Route path="/archives" element={withHeader(<ArchivesPage />)} />

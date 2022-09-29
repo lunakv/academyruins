@@ -1,5 +1,4 @@
 import React from "react";
-import ErrorPage from "../pages/ErrorPage";
 
 interface IState {
   errorMessage?: string;
@@ -8,6 +7,7 @@ interface IState {
 interface IProps {
   hasError: boolean;
   onError: () => void;
+  errorComponent: (message: string | undefined) => JSX.Element;
 }
 
 class ErrorBoundary extends React.Component<React.PropsWithChildren<IProps>, IState> {
@@ -26,7 +26,7 @@ class ErrorBoundary extends React.Component<React.PropsWithChildren<IProps>, ISt
 
   render() {
     if (this.props.hasError) {
-      return <ErrorPage message={this.state.errorMessage} />;
+      return this.props.errorComponent(this.state.errorMessage);
     }
     return this.props.children;
   }
