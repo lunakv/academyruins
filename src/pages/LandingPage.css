@@ -2,11 +2,19 @@
   width: 100vw;
   height: 100vh;
   margin: 0;
+  font-family: "IM Fell English", serif;
 }
 
 #landing-title {
+  font-family: "IM Fell English SC", serif;
   margin-top: 30vh;
-  font-size: 6em;
+  font-size: 7em;
+  line-height: 1;
+}
+
+#landing-subtitle {
+  color: var(--gray);
+  font-size: 2em;
 }
 
 @media screen and (max-width: 767px) {
@@ -14,7 +22,13 @@
     margin-top: 10vh;
     font-size: 4.5em;
   }
+
+  #landing-subtitle {
+    font-size: 1.5em;
+  }
 }
+
+
 
 #landing-wrapper .bi {
   height: 3em;
