@@ -24,7 +24,6 @@
   color: var(--cream);
 }
 
-
 hr {
   border: 0;
   height: 1px;
@@ -89,7 +88,7 @@ h5 {
   color: var(--cream);
 }
 
-[role=tablist] li.nav-item .nav-link.active{
+[role="tablist"] li.nav-item .nav-link.active {
   color: var(--bg);
 }
 

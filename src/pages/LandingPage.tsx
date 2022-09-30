@@ -32,22 +32,22 @@ const LandingPage = () => (
       <Col xs={12}>
         <hr className="w-75 mx-auto" />
       </Col>
-      <Col md={3}>
+      <Col md={3} className="landing-link">
         <Link to="/diff/cr">
           <LandingPageIcon icon={<DiffIcon />} description="Diffs" />
         </Link>
       </Col>
-      <Col md={3}>
+      <Col md={3} className="landing-link">
         <Link to="/archives">
           <LandingPageIcon icon={<ArchiveIcon />} description="Archives" />
         </Link>
       </Col>
-      <Col md={3}>
+      <Col md={3} className="landing-link">
         <a href={process.env.REACT_APP_API_URL + "/docs"}>
           <LandingPageIcon icon={<GearIcon />} description="API" />
         </a>
       </Col>
-      <Col md={3}>
+      <Col md={3} className="landing-link">
         <Link to="/about">
           <LandingPageIcon icon={<QuestionIcon />} description="About" />
         </Link>
