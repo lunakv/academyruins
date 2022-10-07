@@ -72,6 +72,7 @@ class DeletedRule extends TextBlock {
   }
 }
 
+// transforms the text of a rule into an array of TextBlocks, based on where the diff marks are
 function detectChanges<T extends Change>(ruleText: string, type: ConstructorOf<T>): TextBlock[] {
   const split = ruleText.split(Change.regex);
 
@@ -79,28 +80,50 @@ function detectChanges<T extends Change>(ruleText: string, type: ConstructorOf<T
   return split.map((e, i) => (i % 2 === 1 ? new type(e) : new SameText(e)));
 }
 
-function prettifySubtypes(text: TextBlock[], old: boolean): Block[] {
+// given a list of blocks representing a subtype rule, return a string array of all subtypes participating in the changes
+// this is needed because some subtypes are in Change blocks due to separator changes only, and those need to be removed
+function getActualSubtypeChanges(text: TextBlock[]): string[] {
+  return text
+    .filter((e) => e instanceof Change)
+    .map((e) => e.toString().replaceAll(/[,.]/g, ""))
+    .reduce((acc: string[], val: string) => {
+      acc.push(...val.split(" "));
+      return acc;
+    }, []);
+}
+
+// diffs of subtype rules are displayed differently from other diffs
+function prettifySubtypes(oldText: TextBlock[], newText: TextBlock[]): [Block[], Block[]] {
   const regex = /^.+these subtypes are called (.+ types)\.|^.+(Ability words).+entries in the Comprehensive Rules./;
 
-  const match = text[0].toString().match(regex);
-  if (!match) return text;
+  const match = oldText[0].toString().match(regex);
+  if (!match) return [oldText, newText];
 
   const matchName = match[1] || match[2].toLowerCase();
-  const changes = text.filter((e) => e instanceof Change);
+  const oldChanges = getActualSubtypeChanges(oldText);
+  const newChanges = getActualSubtypeChanges(newText);
 
-  const retVal = [new SameText(match[0]), new JsxBlock(<br />)];
+  const uniqueAdded = newChanges.filter((e) => !oldChanges.includes(e)).join(", ");
+  const uniqueRemoved = oldChanges.filter((e) => !newChanges.includes(e)).join(", ");
 
-  if (changes.length === 0) {
-    retVal.push(new SameText(`No ${matchName} were ${old ? "removed" : "added"} in this update.`));
+  const oldPrettified = [new SameText(match[0]), new JsxBlock(<br />)];
+  const newPrettified = [new SameText(match[0]), new JsxBlock(<br />)];
+
+  if (uniqueRemoved.length === 0) {
+    oldPrettified.push(new SameText(`No ${matchName} were removed in this update.`));
   } else {
-    // the changes include a trailing comma, hence the slice
-    const changeList = changes.map((c) => c.toString().slice(0, -1)).join(", ");
-    retVal.push(
-      ...[new SameText(`The ${old ? "old" : "new"} ${matchName} this update are: `), changes[0].cloneWith(changeList)]
-    );
+    oldPrettified.push(new SameText(`The old ${matchName} this update are: `));
+    oldPrettified.push(new Removal(uniqueRemoved));
   }
 
-  return retVal;
+  if (uniqueAdded.length === 0) {
+    newPrettified.push(new SameText(`No ${matchName} were added in this update.`));
+  } else {
+    newPrettified.push(new SameText(`The new ${matchName} this update are: `));
+    newPrettified.push(new Addition(uniqueAdded));
+  }
+
+  return [oldPrettified, newPrettified];
 }
 
 function wrapChanges(changeArray: Block[]): JSX.Element[] {
@@ -123,7 +146,10 @@ export function transformRuleText(
     oldChanges = [new DeletedRule(oldText)];
   }
 
-  const oldWrapped = wrapChanges(prettifySubtypes(oldChanges, true));
-  const newWrapped = wrapChanges(prettifySubtypes(newChanges, false));
+  const [oldPrettified, newPrettified] = prettifySubtypes(oldChanges, newChanges);
+
+  const oldWrapped = wrapChanges(oldPrettified);
+  const newWrapped = wrapChanges(newPrettified);
+
   return [oldWrapped, newWrapped];
 }
