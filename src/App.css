@@ -20,7 +20,9 @@
   margin-top: 12vh;
 }
 
-
+.text-cream {
+  color: var(--cream);
+}
 
 hr {
   border: 0;
@@ -86,7 +88,7 @@ h5 {
   color: var(--cream);
 }
 
-[role=tablist] li.nav-item .nav-link.active{
+[role="tablist"] li.nav-item .nav-link.active {
   color: var(--bg);
 }
 

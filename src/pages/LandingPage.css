@@ -1,15 +1,76 @@
-/* insert newline between sentences on large displays */
-@media screen and (min-width: 800px) {
-  #first-line::after {
-    content: "\a";
-    white-space: pre;
+#landing-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+#landing-content {
+  width: 100%;
+  max-width: 2000px;
+  height: 100vh;
+  margin: 0;
+  font-family: "IM Fell English", serif;
+}
+
+#landing-title {
+  font-family: "IM Fell English SC", serif;
+  margin-top: 30vh;
+  font-size: 7em;
+  line-height: 1;
+}
+
+#landing-subtitle {
+  color: var(--gray);
+  font-size: 2em;
+}
+
+#landing-content .bi {
+  height: 3.5em;
+  width: 3.5em;
+  color: var(--cream);
+}
+
+#landing-content .icon-desc {
+  font-size: 1.5em;
+  color: var(--cream);
+}
+
+/* mobile screens (under "md" breakpoint) require some tweaks */
+@media screen and (max-width: 767px) {
+  /* adjust positioning and size of the title */
+  #landing-title {
+    margin-top: 8vh;
+    font-size: 4.5em;
+  }
+
+  #landing-subtitle {
+    font-size: 1.5em;
+  }
+
+  /* don't fix the content height to viewport, prefer consistently spaced links */
+  #landing-content {
+    height: fit-content;
+  }
+
+  /* set vertical spacing between links */
+  #landing-content .landing-link {
+    margin-bottom: 3.5em;
+  }
+
+  #landing-content .landing-link:last-child {
+    margin-bottom: 1em;
+  }
+
+  #landing-content hr {
+    margin-top: 1em;
+    margin-bottom: 2.5em;
+  }
+
+  /* make icons a smidge smaller */
+  #landing-content .bi {
+    height: 3em;
+    width: 3em;
   }
 }
 
-@media screen and (min-width: 1000px) {
-  #landing-content {
-    max-width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
