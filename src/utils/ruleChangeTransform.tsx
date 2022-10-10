@@ -92,6 +92,17 @@ function getActualSubtypeChanges(text: TextBlock[]): string[] {
     }, []);
 }
 
+// removes commas that were inserted into "(see rule ...)" parens during prettification
+// this is pretty hacky and will break once there's an actual comma inside parens, but w/e
+function fixParentheses(diffstr: string): string {
+  const parened_comma = /\((.*?),(.*?)\)/g;
+  while (parened_comma.test(diffstr)) {
+    diffstr = diffstr.replace(parened_comma, "($1$2)");
+  }
+  // also remove the comma that was inserted before the parentheses
+  return diffstr.replace(/, \(/g, ' (');
+}
+
 // diffs of subtype rules are displayed differently from other diffs
 function prettifySubtypes(oldText: TextBlock[], newText: TextBlock[]): [Block[], Block[]] {
   const regex = /^.+these subtypes are called (.+ types)\.|^.+(Ability words).+entries in the Comprehensive Rules./;
@@ -103,8 +114,10 @@ function prettifySubtypes(oldText: TextBlock[], newText: TextBlock[]): [Block[],
   const oldChanges = getActualSubtypeChanges(oldText);
   const newChanges = getActualSubtypeChanges(newText);
 
-  const uniqueAdded = newChanges.filter((e) => !oldChanges.includes(e)).join(", ");
-  const uniqueRemoved = oldChanges.filter((e) => !newChanges.includes(e)).join(", ");
+  let uniqueAdded = newChanges.filter((e) => !oldChanges.includes(e)).join(", ");
+  let uniqueRemoved = oldChanges.filter((e) => !newChanges.includes(e)).join(", ");
+  uniqueAdded = fixParentheses(uniqueAdded);
+  uniqueRemoved = fixParentheses(uniqueRemoved);
 
   const oldPrettified = [new SameText(match[0]), new JsxBlock(<br />)];
   const newPrettified = [new SameText(match[0]), new JsxBlock(<br />)];
