@@ -38,12 +38,16 @@
   }
 
   .navigation .btn-link {
-    /*width: 100%;*/
-    /*height: 100%;*/
-    font-size: 2em;
-    padding-top: 0;
-    padding-bottom: 0;
+    /*width: 2e%;*/
+    /*height: 2em;*/
+    padding-top: .5em;
+    padding-bottom: .5em;
     color: var(--cream);
+  }
+
+  .navigation .btn-link svg {
+    height: 1.75em;
+    width: auto;
   }
 }
 
@@ -68,7 +72,7 @@
        could this be done more cleanly? possibly. will it be? almost definitely not. is it worth it? ¯\_(ツ)_/¯
           */
     --sidenav-offset: max(
-      min(3vw, calc((100vw - var(--container-size)) / 4 - 12px)),
+      min(3vw, calc((100vw - var(--container-size)) / 4 - 22px)),
       calc((100vw - var(--container-size)) / 2 - 300px)
     );
   }
@@ -89,8 +93,9 @@
     left: var(--sidenav-offset);
   }
 
-  .navigation .btn-link {
-    font-size: 3em;
+  .navigation .btn-link svg {
+    height: 2.75em;
+    width: auto;
   }
 }
 

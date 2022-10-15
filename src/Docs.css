@@ -1,5 +1,3 @@
-@import url("//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css");
-
 table {
   margin: 0 auto;
   width: 75%;
@@ -13,25 +11,6 @@ td {
 
 hr {
   width: 100%;
-}
-
-h3 {
-  padding: 0.5rem 0;
-  cursor: pointer;
-  text-indent: 0.5rem;
-}
-
-h3:after {
-  font-family: "FontAwesome";
-  content: "\f078";
-  float: right;
-  margin-right: 1rem;
-  color: inherit;
-}
-
-h3.collapsed:after {
-  /* symbol for "collapsed" panels */
-  content: "\f054";
 }
 
 .removed {
