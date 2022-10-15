@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullhorn } from "@fortawesome/free-solid-svg-icons/faBullhorn";
 import ChunkedList from "../ChunkedList";
 import Loading from "../Loading";
 import { Col, Row } from "react-bootstrap";
 import SetIcon from "../SetIcon";
 import classes from "./CrDiffArchive.module.css";
+import { ReactComponent as UpdateBulletinIcon } from "bootstrap-icons/icons/megaphone.svg";
 
 async function fetchMetadata() {
   const res = await fetch(`${process.env.REACT_APP_API_URL}/metadata/cr-diffs`);
@@ -50,7 +49,7 @@ const CrDiffArchive = () => {
                     href={diff.bulletin_url}
                     aria-label={`Update Bulletin Link for ${diff.dest_code}`}
                   >
-                    <FontAwesomeIcon icon={faBullhorn} />
+                    <UpdateBulletinIcon />
                   </a>
                   ]
                 </span>
