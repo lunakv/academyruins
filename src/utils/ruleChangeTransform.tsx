@@ -100,7 +100,7 @@ function fixParentheses(diffstr: string): string {
     diffstr = diffstr.replace(parened_comma, "($1$2)");
   }
   // also remove the comma that was inserted before the parentheses
-  return diffstr.replace(/, \(/g, ' (');
+  return diffstr.replace(/, \(/g, " (");
 }
 
 // diffs of subtype rules are displayed differently from other diffs
