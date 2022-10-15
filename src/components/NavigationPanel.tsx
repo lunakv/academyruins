@@ -1,7 +1,6 @@
 import { Button, Col, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretLeft } from "@fortawesome/free-solid-svg-icons/faCaretLeft";
-import { faCaretRight } from "@fortawesome/free-solid-svg-icons/faCaretRight";
+import { ReactComponent as CaretRightIcon } from "bootstrap-icons/icons/caret-right-fill.svg";
+import { ReactComponent as CaretLeftIcon } from "bootstrap-icons/icons/caret-left-fill.svg";
 import "./NavigationPanel.css";
 
 type NavDirection = "prev" | "next";
@@ -16,12 +15,12 @@ const NavigationPanel = ({ leftDisabled, rightDisabled, onClick }: Props) => (
     <Row className="navigation-container">
       <Col xs={6} xl="auto" className="navigation navigation-left">
         <Button variant="link" disabled={leftDisabled} onClick={() => onClick("prev")}>
-          <FontAwesomeIcon icon={faCaretLeft} />
+          <CaretLeftIcon />
         </Button>
       </Col>
       <Col xs={6} xl="auto" className="navigation navigation-right">
         <Button variant="link" disabled={rightDisabled} onClick={() => onClick("next")}>
-          <FontAwesomeIcon icon={faCaretRight} />
+          <CaretRightIcon />
         </Button>
       </Col>
     </Row>

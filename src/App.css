@@ -1,4 +1,29 @@
-@import url("https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Montserrat:wght@400;500;700;800;900&family=Libre+Baskerville&display=swap");
+@font-face {
+  font-family: "IM Fell English";
+  src: url("./fonts/IMFellEnglish-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IM Fell English SC";
+  src: url("./fonts/IMFellEnglishSC-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"), url("./fonts/Montserrat-Variable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat Italic"), local("Montserrat-Italic"),
+    url("./fonts/Montserrat-Italic-Variable.woff2") format("woff2");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Libre Baskerville";
+  src: local("Libre Baskerville"), local("LibreBaskerville"), url("./fonts/LibreBaskerville.woff2") format("woff2");
+}
 
 :root {
   --gray: #a6a99d;

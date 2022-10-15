@@ -1,7 +1,6 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, LinkProps } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { ReactComponent as GithubIcon } from "bootstrap-icons/icons/github.svg";
 
 interface Props {
   onClick: () => void;
@@ -38,8 +37,7 @@ const Header = ({ onClick }: Props) => {
                 Donate
               </Nav.Link>
               <Nav.Link href="https://github.com/lunakv/academyruins/" target="_blank">
-                {/* @ts-ignore brand icons have incompatible type definitions */}
-                <FontAwesomeIcon icon={faGithub} />
+                <GithubIcon />
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
