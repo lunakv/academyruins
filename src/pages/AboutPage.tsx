@@ -11,7 +11,7 @@ const AboutPage = () => (
       containing many of their old versions.
     </p>
     <p>
-      This site is maintained by <b>Václav Luňák</b>, a RA from EU–Central. The CR diffs were a project first created by{" "}
+      This site is maintained by Václav Luňák, a RA from EU–Central. The CR diffs were a project first created by{" "}
       <a href="https://yawgatog.com/">Yawgatog</a> and later continued by Venser’s Journal. Academy Ruins is a
       continuation of those efforts.
     </p>
