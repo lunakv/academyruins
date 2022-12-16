@@ -3,13 +3,14 @@ import Loading from "../components/Loading";
 import InlineDiff from "../components/InlineDiff";
 import { MtrDiffItem } from "../types";
 import { formatDate } from "../utils/dateFormatter";
+import { useParams } from "react-router-dom";
 
 interface MtrDiff {
   changes: MtrDiffItem[];
   effective_date: string;
 }
-async function fetchDiff() {
-  const res = await fetch(`${process.env.REACT_APP_API_URL}/diff/mtr`);
+async function fetchDiff(date: string) {
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/diff/mtr/${date}`);
   return await res.json();
 }
 
@@ -21,12 +22,21 @@ const diffDefault = {
 const MtrDiffPage = () => {
   const [loading, setLoading] = useState(true);
   const [diff, setDiff] = useState<MtrDiff>(diffDefault);
+  const params = useParams();
+  const date = params.date ?? "";
+
+  const [error, setError] = useState(undefined);
+  if (error) throw error;
 
   useEffect(() => {
-    fetchDiff()
+    setLoading(true);
+    fetchDiff(date)
       .then(setDiff)
-      .then(() => setLoading(false));
-  }, []);
+      .then(() => setLoading(false))
+      .catch((e) => {
+        setError(e);
+      });
+  }, [date]);
 
   return (
     <Loading isLoading={loading} className="mt-5">

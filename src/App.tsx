@@ -35,6 +35,7 @@ function App() {
           <Route path="/diff/cr" element={withHeader(<RulesDiffPage />)} />
           <Route path="/diff/cr/:codes" element={withHeader(<RulesDiffPage />)} />
           <Route path="/diff/mtr" element={withHeader(<MtrDiffPage />)} />
+          <Route path="/diff/mtr/:date" element={withHeader(<MtrDiffPage />)} />
           <Route path="/preview" element={withHeader(<PreviewPage />)} />
           <Route path="/debug" element={withHeader(<DiffDebugPage />)} />
           <Route path="/" element={<LandingPage />} />
