@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ChunkedList from "../ChunkedList";
 import Loading from "../Loading";
+import { formatDate } from "../../utils/dateFormatter";
 
 interface Metadata {
   creation_day: string;
@@ -30,13 +31,7 @@ const PolicyDocArchive = ({ kind }: { kind: DocKind }) => {
       <ChunkedList cols={3}>
         {metadata.map((item) => (
           <div>
-            <a href={fileToUrl(item.creation_day, kind)}>
-              {new Date(item.creation_day).toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-              })}
-            </a>
+            <a href={fileToUrl(item.creation_day, kind)}>{formatDate(item.creation_day)}</a>
           </div>
         ))}
       </ChunkedList>

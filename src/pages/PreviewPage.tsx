@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Diff } from "../types";
+import { CrDiffItem } from "../types";
 import ColumnDiff from "../components/ColumnDiff";
 import { Button, Col, Row } from "react-bootstrap";
 import PreviewConfirmModal from "../components/PreviewConfirmModal";
@@ -11,7 +11,7 @@ async function fetchPreview() {
 }
 
 interface DiffPreview {
-  changes: Diff[];
+  changes: CrDiffItem[];
   source_set: string;
   nav: {
     prev: { old: string; new: string };

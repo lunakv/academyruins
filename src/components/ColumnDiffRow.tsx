@@ -1,11 +1,11 @@
 import { transformRuleText } from "../utils/ruleChangeTransform";
-import { Diff } from "../types";
+import { CrDiffItem } from "../types";
 
 interface ColumnDiffProps {
-  row: Diff;
+  row: CrDiffItem;
 }
 
-const rowId = (row: Diff) => (row.new ? row.new.ruleNum : "d" + row.old?.ruleNum);
+const rowId = (row: CrDiffItem) => (row.new ? row.new.ruleNum : "d" + row.old?.ruleNum);
 
 const ColumnDiffRow = ({ row }: ColumnDiffProps) => {
   const [oldText, newText] = transformRuleText(row.old?.ruleText, row.new?.ruleText);

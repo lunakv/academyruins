@@ -1,9 +1,21 @@
-interface DiffItem {
+interface CrDiffRule {
   ruleNum: string;
   ruleText: string;
 }
 
-export interface Diff {
-  old?: DiffItem;
-  new?: DiffItem;
+export interface CrDiffItem {
+  old?: CrDiffRule;
+  new?: CrDiffRule;
+}
+
+export interface MtrChunk {
+  section: number | undefined;
+  subsection: number | undefined;
+  title: string;
+  content: string | undefined;
+}
+
+export interface MtrDiffItem {
+  old: MtrChunk | undefined;
+  new: MtrChunk | undefined;
 }

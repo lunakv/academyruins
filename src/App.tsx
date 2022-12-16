@@ -10,6 +10,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ReactNode, useState } from "react";
 import DiffDebugPage from "./pages/DiffDebugPage";
 import LandingPage from "./pages/LandingPage";
+import MtrDiffPage from "./pages/MtrDiffPage";
 
 function App() {
   const [hasError, setError] = useState(false);
@@ -33,6 +34,7 @@ function App() {
           <Route path="/archives" element={withHeader(<ArchivesPage />)} />
           <Route path="/diff/cr" element={withHeader(<RulesDiffPage />)} />
           <Route path="/diff/cr/:codes" element={withHeader(<RulesDiffPage />)} />
+          <Route path="/diff/mtr" element={withHeader(<MtrDiffPage />)} />
           <Route path="/preview" element={withHeader(<PreviewPage />)} />
           <Route path="/debug" element={withHeader(<DiffDebugPage />)} />
           <Route path="/" element={<LandingPage />} />

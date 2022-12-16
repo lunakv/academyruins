@@ -1,7 +1,17 @@
+interface ConstructorOf<T> {
+  new (text: string): T;
+}
+
+/**
+ * Default building block from which the actual diff cell is constructed
+ */
 abstract class Block {
   abstract toJsx(): JSX.Element;
 }
 
+/**
+ * Block containing actual JSX content (such as a <br /> element)
+ */
 class JsxBlock extends Block {
   constructor(private jsx: JSX.Element) {
     super();
@@ -12,10 +22,9 @@ class JsxBlock extends Block {
   }
 }
 
-interface ConstructorOf<T> {
-  new (text: string): T;
-}
-
+/**
+ * Block containing just simple text
+ */
 abstract class TextBlock extends Block {
   text: string;
 
@@ -28,6 +37,10 @@ abstract class TextBlock extends Block {
     return this.text;
   }
 
+  length() {
+    return this.text.length;
+  }
+
   protected wrapWithSpan(className: string) {
     return <span className={className}>{this.text}</span>;
   }
@@ -36,43 +49,71 @@ abstract class TextBlock extends Block {
     const cst = this.constructor as ConstructorOf<this>;
     return new cst(text);
   }
+
+  split(separator: string): TextBlock[] {
+    const split = this.text.split(separator);
+    return split.map((e) => this.cloneWith(e));
+  }
 }
 
+/**
+ * Blocks of text that are identical between the old and new versions
+ */
 class SameText extends TextBlock {
   toJsx() {
     return <>{this.text}</>;
   }
 }
 
+/**
+ * Blocks of text that are different between the old and new versions
+ */
 abstract class Change extends TextBlock {
-  static readonly regex: RegExp = /<<<<(.*?)>>>>/;
+  static readonly regex: RegExp = /<<<<(.*?)>>>>/ms;
 }
 
+/**
+ * Change on the side of the new version
+ */
 class Addition extends Change {
   toJsx() {
     return this.wrapWithSpan("new");
   }
 }
 
+/**
+ * Change on the side of the old version
+ */
 class Removal extends Change {
   toJsx() {
     return this.wrapWithSpan("old");
   }
 }
 
+/**
+ * Newly added rule without an old counterpart
+ */
 class NewRule extends TextBlock {
   toJsx() {
     return this.wrapWithSpan("add");
   }
 }
 
+/**
+ * Old rule without a new counterpart
+ */
 class DeletedRule extends TextBlock {
   toJsx() {
     return this.wrapWithSpan("remove");
   }
 }
 
-// transforms the text of a rule into an array of TextBlocks, based on where the diff marks are
+/**
+ * Transforms the text of a rule into an array of TextBlocks, based on where the diff marks are
+ * @param ruleText The text of the diffed rule, as marked by the API
+ * @param type What type of Change block should the diffed parts turn into
+ */
+//
 function detectChanges<T extends Change>(ruleText: string, type: ConstructorOf<T>): TextBlock[] {
   const split = ruleText.split(Change.regex);
 
@@ -80,8 +121,11 @@ function detectChanges<T extends Change>(ruleText: string, type: ConstructorOf<T
   return split.map((e, i) => (i % 2 === 1 ? new type(e) : new SameText(e)));
 }
 
-// given a list of blocks representing a subtype rule, return a string array of all subtypes participating in the changes
-// this is needed because some subtypes are in Change blocks due to separator changes only, and those need to be removed
+/**
+ * Given a list of blocks representing a subtype rule, return a string array of subtypes participating in the changes
+ * this is needed because some subtypes are in Change blocks due to punctuation only, and those need to be removed
+ * @param text The array of parsed TextBlock instances representing the current diff item
+ */
 function getActualSubtypeChanges(text: TextBlock[]): string[] {
   return text
     .filter((e) => e instanceof Change)
@@ -92,7 +136,9 @@ function getActualSubtypeChanges(text: TextBlock[]): string[] {
     }, []);
 }
 
-// removes commas that were inserted into "(see rule ...)" parens during prettification
+/**
+ * Removes commas that were inserted into "(see rule ...)" parens during prettification
+ */
 // this is pretty hacky and will break once there's an actual comma inside parens, but w/e
 function fixParentheses(diffstr: string): string {
   const parened_comma = /\((.*?),(.*?)\)/g;
@@ -139,6 +185,9 @@ function prettifySubtypes(oldText: TextBlock[], newText: TextBlock[]): [Block[],
   return [oldPrettified, newPrettified];
 }
 
+/**
+ * Turn all the parsed Blocks into their JSX representation
+ */
 function wrapChanges(changeArray: Block[]): JSX.Element[] {
   return changeArray.map((e) => e.toJsx());
 }
@@ -165,4 +214,117 @@ export function transformRuleText(
   const newWrapped = wrapChanges(newPrettified);
 
   return [oldWrapped, newWrapped];
+}
+
+class BlockSeeker {
+  blockI = 0;
+  withinBlockI = 0;
+  blocks: TextBlock[];
+
+  constructor(blocks: TextBlock[]) {
+    this.blocks = blocks;
+  }
+
+  toNextBlock() {
+    return this.blocks[this.blockI].length() - this.withinBlockI;
+  }
+
+  currentBlock() {
+    return this.blocks[this.blockI];
+  }
+
+  moveBy(i: number) {
+    if (i >= this.toNextBlock()) {
+      i -= this.toNextBlock();
+      this.withinBlockI = 0;
+      this.blockI += 1;
+    }
+
+    while (!this.isEnd() && i >= this.currentBlock().length()) {
+      i -= this.currentBlock().length();
+      this.blockI += 0;
+    }
+
+    this.withinBlockI += i;
+  }
+
+  getRestOfBlock() {
+    const slice = this.currentBlock().text.slice(this.withinBlockI);
+    const retVal = this.currentBlock().cloneWith(slice);
+    this.withinBlockI = 0;
+    this.blockI += 1;
+    return retVal;
+  }
+
+  isEnd() {
+    return this.blockI >= this.blocks.length;
+  }
+}
+
+/**
+ * Given the old and new parsed representations of the diff item, create a single item where common blocks are
+ * deduplicated and all removals and additions are placed right next to each other
+ */
+function inlineChanges(oldParsed: TextBlock[], newParsed: TextBlock[]): TextBlock[] {
+  const oldSeeker = new BlockSeeker(oldParsed);
+  const newSeeker = new BlockSeeker(newParsed);
+  const res = [];
+  while (!oldSeeker.isEnd() && !newSeeker.isEnd()) {
+    if (oldSeeker.currentBlock() instanceof Removal) {
+      res.push(oldSeeker.getRestOfBlock());
+    } else if (newSeeker.currentBlock() instanceof Addition) {
+      res.push(newSeeker.getRestOfBlock());
+    } else {
+      // two SameText blocks
+      const oldLength = oldSeeker.toNextBlock();
+      const newLength = newSeeker.toNextBlock();
+      if (newLength < oldLength) {
+        res.push(newSeeker.getRestOfBlock());
+        oldSeeker.moveBy(newLength);
+      } else {
+        res.push(oldSeeker.getRestOfBlock());
+        newSeeker.moveBy(oldLength);
+      }
+    }
+  }
+
+  while (!oldSeeker.isEnd()) {
+    res.push(oldSeeker.getRestOfBlock());
+  }
+
+  while (!newSeeker.isEnd()) {
+    res.push(newSeeker.getRestOfBlock());
+  }
+
+  return res;
+}
+
+export function transformMtrChange(oldText: string | undefined, newText: string | undefined): JSX.Element[] {
+  if (oldText === undefined && newText === undefined) {
+    throw new Error("Either old or new version of the text must be defined");
+  }
+  if (oldText === undefined) {
+    return wrapChanges([new NewRule(newText!)]);
+  }
+  if (newText === undefined) {
+    return wrapChanges([new DeletedRule(oldText)]);
+  }
+
+  const oldParsed = detectChanges(oldText, Removal);
+  const newParsed = detectChanges(newText, Addition);
+  const inlined = inlineChanges(oldParsed, newParsed);
+  const paragraphed = inlined.reduce(
+    (arr: TextBlock[][], block: TextBlock) => {
+      const split = block.split("\n\n");
+      arr[arr.length - 1].push(split[0]);
+      for (let i = 1; i < split.length; i++) {
+        arr.push([split[i]]);
+      }
+
+      return arr;
+    },
+    [[]]
+  );
+
+  return paragraphed.map((para) => <p>{wrapChanges(para)}</p>);
 }
