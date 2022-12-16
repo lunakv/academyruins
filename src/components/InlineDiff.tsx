@@ -1,4 +1,3 @@
-import "../Docs.css";
 // TODO findNewStuff; makeItPretty
 // TODO docs.js
 import { Accordion, Container } from "react-bootstrap";
