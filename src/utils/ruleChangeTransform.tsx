@@ -1,3 +1,5 @@
+import { MtrDiffItem } from "../types";
+
 interface ConstructorOf<T> {
   new (text: string): T;
 }
@@ -299,19 +301,30 @@ function inlineChanges(oldParsed: TextBlock[], newParsed: TextBlock[]): TextBloc
   return res;
 }
 
-export function transformMtrChange(oldText: string | undefined, newText: string | undefined): JSX.Element[] {
-  if (oldText === undefined && newText === undefined) {
+const getFullTitle = (item: MtrDiffItem) => {
+  const chunk = item.new ?? item.old!;
+  if (!chunk.section) {
+    return chunk.title;
+  }
+  return `${chunk.section}.${chunk.subsection} ${chunk.title}`;
+};
+
+export function transformMtrChange(diffItem: MtrDiffItem): [JSX.Element, JSX.Element[]] {
+  const { old: oldChunk, new: newChunk } = diffItem;
+  const title = getFullTitle(diffItem);
+
+  if (!oldChunk && !newChunk) {
     throw new Error("Either old or new version of the text must be defined");
   }
-  if (oldText === undefined) {
-    return wrapChanges([new NewRule(newText!)]);
+  if (!oldChunk) {
+    return [new NewRule(title).toJsx(), wrapChanges([new NewRule(newChunk!.content!)])];
   }
-  if (newText === undefined) {
-    return wrapChanges([new DeletedRule(oldText)]);
+  if (!newChunk) {
+    return [new DeletedRule(title).toJsx(), wrapChanges([new DeletedRule(oldChunk.content!)])];
   }
 
-  const oldParsed = detectChanges(oldText, Removal);
-  const newParsed = detectChanges(newText, Addition);
+  const oldParsed = detectChanges(oldChunk.content!, Removal);
+  const newParsed = detectChanges(newChunk.content!, Addition);
   const inlined = inlineChanges(oldParsed, newParsed);
   const paragraphed = inlined.reduce(
     (arr: TextBlock[][], block: TextBlock) => {
@@ -326,5 +339,5 @@ export function transformMtrChange(oldText: string | undefined, newText: string 
     [[]]
   );
 
-  return paragraphed.map((para) => <p>{wrapChanges(para)}</p>);
+  return [<>{title}</>, paragraphed.map((para) => <p>{wrapChanges(para)}</p>)];
 }

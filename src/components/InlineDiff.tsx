@@ -10,29 +10,14 @@ interface Props {
 
   changes: MtrDiffItem[];
 }
-
-function getTitle(change: MtrDiffItem): string {
-  const chunk = change.old ?? change.new!;
-  return chunk.title;
-}
-
-function getFullTitle(change: MtrDiffItem): string {
-  const chunk = change.old ?? change.new!;
-  let ret = "";
-  if (chunk.section) {
-    ret += chunk.section + "." + chunk.subsection + " ";
-  }
-  return ret + chunk.title;
-}
-
 const InlineDiffPage = ({ title, changes }: Props) => (
   <Container fluid="lg">
     <h2 className="text-center my-4">{title}</h2>
     <Accordion flush>
-      {changes.map((section) => (
-        <Accordion.Item eventKey={getTitle(section)}>
-          <Accordion.Header>{getFullTitle(section)}</Accordion.Header>
-          <Accordion.Body>{transformMtrChange(section.old?.content, section.new?.content)}</Accordion.Body>
+      {changes.map(transformMtrChange).map(([title, content], i) => (
+        <Accordion.Item eventKey={i.toString()}>
+          <Accordion.Header>{title}</Accordion.Header>
+          <Accordion.Body>{content}</Accordion.Body>
         </Accordion.Item>
       ))}
     </Accordion>
