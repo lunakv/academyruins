@@ -36,6 +36,10 @@
   color: var(--cream);
 }
 
+#landing-content a {
+  text-decoration: none;
+}
+
 /* mobile screens (under "md" breakpoint) require some tweaks */
 @media screen and (max-width: 767px) {
   /* adjust positioning and size of the title */

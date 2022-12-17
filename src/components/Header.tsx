@@ -7,8 +7,24 @@ interface Props {
 }
 
 const Header = ({ onClick }: Props) => {
-  const linkTag = (props: LinkProps) => <Link {...props} onClick={onClick} />;
-  // @ts-ignore
+  const linkTag = (props: LinkProps) => {
+    // if we don't propagate the original onClick handler, the dropdown menu doesn't close
+    let actualOnClick;
+    if (props?.onClick) {
+      // we do this to capture the actual function instead of just the props object (which could be mutable)
+      const capturedOnClick = props.onClick;
+      // @ts-ignore TS just keeps complaining about the mouse event types. Whatever, it'll be fine
+      actualOnClick = (e) => {
+        capturedOnClick(e);
+        onClick();
+      };
+    } else {
+      actualOnClick = onClick;
+    }
+
+    return <Link {...props} onClick={actualOnClick} />;
+  };
+
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="md">

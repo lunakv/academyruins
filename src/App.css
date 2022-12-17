@@ -134,7 +134,7 @@ h5 {
   list-style-type: none;
 }
 .dropdown-menu a.dropdown-item {
-  background-color: #343a40;
+  background-color: var(--bg);
   color: var(--cream);
 }
 
