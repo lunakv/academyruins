@@ -301,13 +301,38 @@ function inlineChanges(oldParsed: TextBlock[], newParsed: TextBlock[]): TextBloc
   return res;
 }
 
-const getFullTitle = (item: MtrDiffItem) => {
+function splitBasedOn(blocks: TextBlock[], separator: string): TextBlock[][] {
+  return blocks.reduce(
+    (arr: TextBlock[][], block: TextBlock) => {
+      const split = block.split(separator);
+      arr[arr.length - 1].push(split[0]);
+      for (let i = 1; i < split.length; i++) {
+        arr.push([split[i]]);
+      }
+      return arr;
+    },
+    [[]]
+  );
+}
+
+function expandIfList(paragraph: TextBlock[]): Block[] {
+  if (paragraph.length === 0) return paragraph;
+  const listMarker = "•";
+  if (!paragraph[0].text.trimStart().startsWith(listMarker)) return paragraph;
+
+  // items start with the marker, so the first item of the split will always be empty or whitespace, hence the slice
+  const listItems = splitBasedOn(paragraph, listMarker).slice(1);
+  const listItemJsxElements = listItems.map((item) => <li>{wrapChanges(item)}</li>);
+  return [new JsxBlock(<ul>{listItemJsxElements}</ul>)];
+}
+
+function getFullTitle(item: MtrDiffItem) {
   const chunk = item.new ?? item.old!;
   if (!chunk.section) {
     return chunk.title;
   }
   return `${chunk.section}.${chunk.subsection} ${chunk.title}`;
-};
+}
 
 export function transformMtrChange(diffItem: MtrDiffItem): [JSX.Element, JSX.Element[]] {
   const { old: oldChunk, new: newChunk } = diffItem;
@@ -326,18 +351,9 @@ export function transformMtrChange(diffItem: MtrDiffItem): [JSX.Element, JSX.Ele
   const oldParsed = detectChanges(oldChunk.content!, Removal);
   const newParsed = detectChanges(newChunk.content!, Addition);
   const inlined = inlineChanges(oldParsed, newParsed);
-  const paragraphed = inlined.reduce(
-    (arr: TextBlock[][], block: TextBlock) => {
-      const split = block.split("\n\n");
-      arr[arr.length - 1].push(split[0]);
-      for (let i = 1; i < split.length; i++) {
-        arr.push([split[i]]);
-      }
+  const paragraphed = splitBasedOn(inlined, "\n\n");
 
-      return arr;
-    },
-    [[]]
-  );
+  const withHandledLists = paragraphed.map(expandIfList);
 
-  return [<>{title}</>, paragraphed.map((para) => <p>{wrapChanges(para)}</p>)];
+  return [<>{title}</>, withHandledLists.map((para) => <p>{wrapChanges(para)}</p>)];
 }
