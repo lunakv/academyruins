@@ -7,7 +7,7 @@ interface Props {
   onHide: () => void;
 }
 
-const PreviewConfirmModal = ({ show, onHide }: Props) => {
+const CrPreviewConfirmModal = ({ show, onHide }: Props) => {
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [bulletin, setBulletin] = useState("");
@@ -61,4 +61,4 @@ const PreviewConfirmModal = ({ show, onHide }: Props) => {
   );
 };
 
-export default PreviewConfirmModal;
+export default CrPreviewConfirmModal;

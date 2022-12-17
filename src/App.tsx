@@ -5,12 +5,13 @@ import AboutPage from "./pages/AboutPage";
 import ArchivesPage from "./pages/ArchivesPage";
 import ErrorPage from "./pages/ErrorPage";
 import RulesDiffPage from "./pages/RulesDiffPage";
-import PreviewPage from "./pages/PreviewPage";
+import CrPreviewPage from "./pages/CrPreviewPage";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ReactNode, useState } from "react";
 import DiffDebugPage from "./pages/DiffDebugPage";
 import LandingPage from "./pages/LandingPage";
 import MtrDiffPage from "./pages/MtrDiffPage";
+import PolicyPreviewPage from "./pages/PolicyPreviewPage";
 
 function App() {
   const [hasError, setError] = useState(false);
@@ -36,7 +37,8 @@ function App() {
           <Route path="/diff/cr/:codes" element={withHeader(<RulesDiffPage />)} />
           <Route path="/diff/mtr" element={withHeader(<MtrDiffPage />)} />
           <Route path="/diff/mtr/:date" element={withHeader(<MtrDiffPage />)} />
-          <Route path="/preview" element={withHeader(<PreviewPage />)} />
+          <Route path="/preview/cr" element={withHeader(<CrPreviewPage />)} />
+          <Route path="/preview/mtr" element={withHeader(<PolicyPreviewPage />)} />
           <Route path="/debug" element={withHeader(<DiffDebugPage />)} />
           <Route path="/" element={<LandingPage />} />
           <Route path="*" element={withHeader(<ErrorPage message={"This page does not exist."} />)} />

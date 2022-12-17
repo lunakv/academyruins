@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CrDiffItem } from "../types";
 import ColumnDiff from "../components/ColumnDiff";
 import { Button, Col, Row } from "react-bootstrap";
-import PreviewConfirmModal from "../components/PreviewConfirmModal";
+import CrPreviewConfirmModal from "../components/CrPreviewConfirmModal";
 
 async function fetchPreview() {
   const res = await fetch(`${process.env.REACT_APP_API_URL}/pending/cr`);
@@ -18,7 +18,7 @@ interface DiffPreview {
   };
 }
 
-const PreviewPage = () => {
+const CrPreviewPage = () => {
   const [data, setData] = useState<DiffPreview | undefined>(undefined);
   const [showModal, setShowModal] = useState(false);
 
@@ -36,9 +36,9 @@ const PreviewPage = () => {
       <Col xs={12}>
         <Button onClick={() => setShowModal(true)}>Confirm</Button>
       </Col>
-      <PreviewConfirmModal show={showModal} onHide={() => setShowModal(false)} />
+      <CrPreviewConfirmModal show={showModal} onHide={() => setShowModal(false)} />
     </Row>
   );
 };
 
-export default PreviewPage;
+export default CrPreviewPage;
