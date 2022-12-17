@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Dropdown, Nav, Navbar, NavItem, NavLink } from "react-bootstrap";
 import { Link, LinkProps } from "react-router-dom";
 import { ReactComponent as GithubIcon } from "bootstrap-icons/icons/github.svg";
 
@@ -19,9 +19,19 @@ const Header = ({ onClick }: Props) => {
           <Navbar.Toggle aria-controls="header-nav" />
           <Navbar.Collapse id="header-nav">
             <Nav className="me-auto">
-              <Nav.Link as={linkTag} to="/diff/cr">
-                Diffs
-              </Nav.Link>
+              <Dropdown as={NavItem} className="bg-dark">
+                <Dropdown.Toggle as={NavLink} active={false}>
+                  Diffs
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="bg-dark">
+                  <Dropdown.Item as={linkTag} to="/diff/cr">
+                    CR
+                  </Dropdown.Item>
+                  <Dropdown.Item as={linkTag} to="/diff/mtr">
+                    MTR
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
               <Nav.Link as={linkTag} to="/archives">
                 Archives
               </Nav.Link>
