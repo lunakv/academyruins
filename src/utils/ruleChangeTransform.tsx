@@ -105,7 +105,7 @@ function fixParentheses(diffstr: string): string {
 
 // diffs of subtype rules are displayed differently from other diffs
 function prettifySubtypes(oldText: TextBlock[], newText: TextBlock[]): [Block[], Block[]] {
-  const regex = /^.+these subtypes are called (.+ types)\.|^.+(Ability words).+entries in the Comprehensive Rules./;
+  const regex = /^.+these subtypes are called (.+? types)\.|^.+(Ability words).+entries in the Comprehensive Rules./;
 
   const match = oldText[0].toString().match(regex);
   if (!match) return [oldText, newText];
