@@ -8,10 +8,11 @@ import RulesDiffPage from "./pages/RulesDiffPage";
 import CrPreviewPage from "./pages/CrPreviewPage";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ReactNode, useState } from "react";
-import DiffDebugPage from "./pages/DiffDebugPage";
+import CrDiffDebugPage from "./pages/CrDiffDebugPage";
 import LandingPage from "./pages/LandingPage";
 import MtrDiffPage from "./pages/MtrDiffPage";
 import PolicyPreviewPage from "./pages/PolicyPreviewPage";
+import MtrDiffDebugPage from "./pages/MtrDiffDebugPage";
 
 function App() {
   const [hasError, setError] = useState(false);
@@ -39,7 +40,8 @@ function App() {
           <Route path="/diff/mtr/:date" element={withHeader(<MtrDiffPage />)} />
           <Route path="/preview/cr" element={withHeader(<CrPreviewPage />)} />
           <Route path="/preview/mtr" element={withHeader(<PolicyPreviewPage />)} />
-          <Route path="/debug" element={withHeader(<DiffDebugPage />)} />
+          <Route path="/debug/cr" element={withHeader(<CrDiffDebugPage />)} />
+          <Route path="/debug/mtr" element={withHeader(<MtrDiffDebugPage />)} />
           <Route path="/" element={<LandingPage />} />
           <Route path="*" element={withHeader(<ErrorPage message={"This page does not exist."} />)} />
           {/* TODO doc diff routes */}
