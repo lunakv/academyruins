@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import ColumnDiff from "../components/ColumnDiff";
 import loadFile from "../utils/loadFile";
 import InlineDiff from "../components/InlineDiff";
 import { formatDate } from "../utils/dateFormatter";

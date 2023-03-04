@@ -138,6 +138,11 @@ h5 {
   color: var(--cream);
 }
 
+#header-nav .dropdown-menu a.dropdown-item:hover,
+#header-nav .nav-link:hover {
+  filter: brightness(0.8);
+}
+
 a {
   color: #004ba1;
 }
