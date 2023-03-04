@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import ColumnDiff from "../components/ColumnDiff";
-import { Diff } from "../types";
+import { CrDiffItem } from "../types";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import NavigationPanel from "../components/NavigationPanel";
@@ -12,7 +12,7 @@ async function fetchDiff(sets: string) {
 }
 
 interface ApiDiff {
-  changes: Diff[];
+  changes: CrDiffItem[];
   source_set: string;
   dest_set: string;
   nav: {
@@ -25,7 +25,7 @@ const RulesDiffPage = () => {
   const params = useParams();
   const [diff, setDiff] = useState<ApiDiff | undefined>(undefined);
   const [isLoading, setLoading] = useState(true);
-  const diffString = params.codes ?? "latest";
+  const diffString = params.codes ?? "";
   const navigate = useRef(useNavigate());
 
   const [error, setError] = useState(undefined);

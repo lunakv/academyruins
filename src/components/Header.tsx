@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Dropdown, Nav, Navbar, NavItem, NavLink } from "react-bootstrap";
 import { Link, LinkProps } from "react-router-dom";
 import { ReactComponent as GithubIcon } from "bootstrap-icons/icons/github.svg";
 
@@ -7,8 +7,24 @@ interface Props {
 }
 
 const Header = ({ onClick }: Props) => {
-  const linkTag = (props: LinkProps) => <Link {...props} onClick={onClick} />;
-  // @ts-ignore
+  const linkTag = (props: LinkProps) => {
+    // if we don't propagate the original onClick handler, the dropdown menu doesn't close
+    let actualOnClick;
+    if (props?.onClick) {
+      // we do this to capture the actual function instead of just the props object (which could be mutable)
+      const capturedOnClick = props.onClick;
+      // @ts-ignore TS just keeps complaining about the mouse event types. Whatever, it'll be fine
+      actualOnClick = (e) => {
+        capturedOnClick(e);
+        onClick();
+      };
+    } else {
+      actualOnClick = onClick;
+    }
+
+    return <Link {...props} onClick={actualOnClick} />;
+  };
+
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="md">
@@ -19,9 +35,19 @@ const Header = ({ onClick }: Props) => {
           <Navbar.Toggle aria-controls="header-nav" />
           <Navbar.Collapse id="header-nav">
             <Nav className="me-auto">
-              <Nav.Link as={linkTag} to="/diff/cr">
-                Diffs
-              </Nav.Link>
+              <Dropdown as={NavItem} className="bg-dark">
+                <Dropdown.Toggle as={NavLink} active={false}>
+                  Diffs
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="bg-dark">
+                  <Dropdown.Item as={linkTag} to="/diff/cr">
+                    CR
+                  </Dropdown.Item>
+                  <Dropdown.Item as={linkTag} to="/diff/mtr">
+                    MTR
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
               <Nav.Link as={linkTag} to="/archives">
                 Archives
               </Nav.Link>

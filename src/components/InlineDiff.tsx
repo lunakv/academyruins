@@ -1,21 +1,22 @@
-import "../Docs.css";
 // TODO findNewStuff; makeItPretty
 // TODO docs.js
 import { Accordion, Container } from "react-bootstrap";
+import { transformMtrChange } from "../utils/ruleChangeTransform";
+import { MtrDiffItem } from "../types";
 
 interface Props {
   title: string;
-  data: any[]; // TODO give proper type
-}
 
-const InlineDiffPage = ({ title, data }: Props) => (
+  changes: MtrDiffItem[];
+}
+const InlineDiffPage = ({ title, changes }: Props) => (
   <Container fluid="lg">
     <h2 className="text-center my-4">{title}</h2>
     <Accordion flush>
-      {data.map((section) => (
-        <Accordion.Item eventKey={section.code}>
-          <Accordion.Header>{section.title}</Accordion.Header>
-          <Accordion.Body>{section.body /* TODO properly display section */}</Accordion.Body>
+      {changes.map(transformMtrChange).map(([title, content], i) => (
+        <Accordion.Item eventKey={i.toString()}>
+          <Accordion.Header>{title}</Accordion.Header>
+          <Accordion.Body>{content}</Accordion.Body>
         </Accordion.Item>
       ))}
     </Accordion>

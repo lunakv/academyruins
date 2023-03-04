@@ -3,6 +3,7 @@ import { Container, Tab, Tabs } from "react-bootstrap";
 import CrArchive from "../components/archives/CrArchive";
 import CrDiffArchive from "../components/archives/CrDiffArchive";
 import PolicyDocArchive from "../components/archives/PolicyDocArchive";
+import PolicyDiffArchive from "../components/archives/PolicyDiffArchive";
 
 const ArchivesPage = () => (
   <Container fluid="lg" className=" my-5">
@@ -22,8 +23,7 @@ const ArchivesPage = () => (
         <i>Coming soon!</i>
       </Tab>
       <Tab title="MTR" eventKey="mtr">
-        {/* TODO MTR diff archive */}
-        <i>Coming soon!</i>
+        <PolicyDiffArchive />
       </Tab>
     </Tabs>
 

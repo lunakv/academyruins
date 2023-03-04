@@ -4,12 +4,12 @@ import "../pages/RulesDiffPage.css";
 
 import { Container } from "react-bootstrap";
 import ColumnDiffRow from "./ColumnDiffRow";
-import { Diff } from "../types";
+import { CrDiffItem } from "../types";
 
 interface Props {
   oldName?: string;
   newName?: string;
-  changes?: Diff[];
+  changes?: CrDiffItem[];
 }
 
 const ColumnDiff = ({ oldName, newName, changes = [] }: Props) => (

@@ -104,8 +104,7 @@ h5 {
   color: var(--cream);
 }
 
-.navbar-dark .navbar-nav a.nav-link.active,
-.navbar-dark .navbar-nav .show > a.nav-link {
+.navbar-dark .navbar-nav a.nav-link {
   color: var(--cream) !important;
 }
 
@@ -135,8 +134,13 @@ h5 {
   list-style-type: none;
 }
 .dropdown-menu a.dropdown-item {
-  background-color: #343a40;
+  background-color: var(--bg);
   color: var(--cream);
+}
+
+#header-nav .dropdown-menu a.dropdown-item:hover,
+#header-nav .nav-link:hover {
+  filter: brightness(0.8);
 }
 
 a {
