@@ -12,7 +12,7 @@ abstract class Block {
 }
 
 /**
- * Block containing actual JSX content (such as a <br /> element)
+ * Block containing actual JSX content (such as a &lt;br /&gt; element)
  */
 class JsxBlock extends Block {
   constructor(private jsx: JSX.Element) {
@@ -227,7 +227,7 @@ class BlockSeeker {
     this.blocks = blocks;
   }
 
-  toNextBlock() {
+  distanceToNextBlock() {
     return this.blocks[this.blockI].length() - this.withinBlockI;
   }
 
@@ -236,8 +236,8 @@ class BlockSeeker {
   }
 
   moveBy(i: number) {
-    if (i >= this.toNextBlock()) {
-      i -= this.toNextBlock();
+    if (i >= this.distanceToNextBlock()) {
+      i -= this.distanceToNextBlock();
       this.withinBlockI = 0;
       this.blockI += 1;
     }
@@ -264,12 +264,43 @@ class BlockSeeker {
 }
 
 /**
- * Given the old and new parsed representations of the diff item, create a single item where common blocks are
- * deduplicated and all removals and additions are placed right next to each other
+ * Given the old and new parsed representations of a diff item, create a single item where common blocks are
+ * deduplicated and all removals and additions are placed right next to each other.
+ * @param {TextBlock[][]} oldParsed Parsed representation of the old version of the item, split into paragraphs.
+ * @param {TextBlock[][]} newParsed Parsed representation of the new version of the item, split into paragraphs.
  */
-function inlineChanges(oldParsed: TextBlock[], newParsed: TextBlock[]): TextBlock[] {
-  const oldSeeker = new BlockSeeker(oldParsed);
-  const newSeeker = new BlockSeeker(newParsed);
+function inlineChanges(oldParsed: TextBlock[][], newParsed: TextBlock[][]): TextBlock[][] {
+  let oldI = 0;
+  let newI = 0;
+  const inlinedParagraphs = [];
+  while (oldI < oldParsed.length && newI < newParsed.length) {
+    const oldPara = oldParsed[oldI];
+    const newPara = newParsed[newI];
+    if (oldPara.length === 1 && oldPara[0] instanceof Removal) {
+      // a whole paragraph was deleted, nothing to inline here
+      inlinedParagraphs.push(oldPara);
+      oldI++;
+    } else if (newPara.length === 1 && newPara[1] instanceof Addition) {
+      // a whole paragraph was added, nothing to inline here
+      inlinedParagraphs.push(newPara);
+      newI++;
+    } else {
+      inlinedParagraphs.push(inlineParagraph(oldPara, newPara));
+      oldI++;
+      newI++;
+    }
+  }
+  inlinedParagraphs.push(...oldParsed.slice(oldI));
+  inlinedParagraphs.push(...newParsed.slice(newI));
+  return inlinedParagraphs;
+}
+
+/**
+ * Inlines the changes within a single paragraph
+ */
+function inlineParagraph(oldParagraph: TextBlock[], newParagraph: TextBlock[]): TextBlock[] {
+  const oldSeeker = new BlockSeeker(oldParagraph);
+  const newSeeker = new BlockSeeker(newParagraph);
   const res = [];
   while (!oldSeeker.isEnd() && !newSeeker.isEnd()) {
     if (oldSeeker.currentBlock() instanceof Removal) {
@@ -278,8 +309,8 @@ function inlineChanges(oldParsed: TextBlock[], newParsed: TextBlock[]): TextBloc
       res.push(newSeeker.getRestOfBlock());
     } else {
       // two SameText blocks
-      const oldLength = oldSeeker.toNextBlock();
-      const newLength = newSeeker.toNextBlock();
+      const oldLength = oldSeeker.distanceToNextBlock();
+      const newLength = newSeeker.distanceToNextBlock();
       if (newLength < oldLength) {
         res.push(newSeeker.getRestOfBlock());
         oldSeeker.moveBy(newLength);
@@ -302,26 +333,32 @@ function inlineChanges(oldParsed: TextBlock[], newParsed: TextBlock[]): TextBloc
 }
 
 function splitBasedOn(blocks: TextBlock[], separator: string): TextBlock[][] {
-  return blocks.reduce(
-    (arr: TextBlock[][], block: TextBlock) => {
-      const split = block.split(separator);
-      arr[arr.length - 1].push(split[0]);
-      for (let i = 1; i < split.length; i++) {
-        arr.push([split[i]]);
-      }
-      return arr;
-    },
-    [[]]
-  );
+  return blocks
+    .reduce(
+      (arr: TextBlock[][], block: TextBlock) => {
+        const split = block.split(separator);
+        if (split[0].length() > 0) arr[arr.length - 1].push(split[0]);
+        for (let i = 1; i < split.length; i++) {
+          arr.push(split[i].length() > 0 ? [split[i]] : []);
+        }
+        return arr;
+      },
+      [[]]
+    )
+    .filter((blockList) => blockList.length > 0);
 }
 
 function expandIfList(paragraph: TextBlock[]): Block[] {
   if (paragraph.length === 0) return paragraph;
-  const listMarker = "•";
+  const listMarker = "•"; // TODO handle numbered lists
+  // a list paragraph must begin with a list item, which begins with a list marker
   if (!paragraph[0].text.trimStart().startsWith(listMarker)) return paragraph;
 
-  // items start with the marker, so the first item of the split will always be empty or whitespace, hence the slice
-  const listItems = splitBasedOn(paragraph, listMarker).slice(1);
+  // some list items may be completely empty (e.g. the first one will definitely be, because the starting symbol is
+  // a separator). we want to get rid of those, otherwise we just get some empty bullet points in the view
+  const listItems = splitBasedOn(paragraph, listMarker).filter(
+    (li) => !li.every((block) => block.text.trim().length === 0)
+  );
   const listItemJsxElements = listItems.map((item) => <li>{wrapChanges(item)}</li>);
   return [new JsxBlock(<ul>{listItemJsxElements}</ul>)];
 }
@@ -350,10 +387,13 @@ export function transformMtrChange(diffItem: MtrDiffItem): [JSX.Element, JSX.Ele
 
   const oldParsed = detectChanges(oldChunk.content!, Removal);
   const newParsed = detectChanges(newChunk.content!, Addition);
-  const inlined = inlineChanges(oldParsed, newParsed);
-  const paragraphed = splitBasedOn(inlined, "\n\n");
+  // changes won't cross paragraph boundaries, so it makes sense to split into paragraphs before inlining
+  const paragraphedOld = splitBasedOn(oldParsed, "\n\n");
+  const paragraphedNew = splitBasedOn(newParsed, "\n\n");
 
-  const withHandledLists = paragraphed.map(expandIfList);
+  const inlined = inlineChanges(paragraphedOld, paragraphedNew);
+
+  const withHandledLists = inlined.map(expandIfList);
 
   return [<>{title}</>, withHandledLists.map((para) => <p>{wrapChanges(para)}</p>)];
 }
