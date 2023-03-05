@@ -13,6 +13,7 @@ import LandingPage from "./pages/LandingPage";
 import MtrDiffPage from "./pages/MtrDiffPage";
 import PolicyPreviewPage from "./pages/PolicyPreviewPage";
 import MtrDiffDebugPage from "./pages/MtrDiffDebugPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   const [hasError, setError] = useState(false);
@@ -43,8 +44,8 @@ function App() {
           <Route path="/debug/cr" element={withHeader(<CrDiffDebugPage />)} />
           <Route path="/debug/mtr" element={withHeader(<MtrDiffDebugPage />)} />
           <Route path="/" element={<LandingPage />} />
-          <Route path="*" element={withHeader(<ErrorPage message={"This page does not exist."} />)} />
-          {/* TODO doc diff routes */}
+          <Route path="*" element={withHeader(<NotFoundPage />)} />
+          {/* TODO IPG diff routes */}
         </Routes>
       </ErrorBoundary>
     </div>
