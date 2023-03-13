@@ -25,7 +25,7 @@ const RulesDiffPage = () => {
   const params = useParams();
   const [diff, setDiff] = useState<ApiDiff | undefined>(undefined);
   const [isLoading, setLoading] = useState(true);
-  const diffString = params.codes ?? "latest";
+  const diffString = params.codes ?? "";
   const navigate = useRef(useNavigate());
 
   const [error, setError] = useState(undefined);
