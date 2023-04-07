@@ -12,7 +12,7 @@ async function fetchPreview() {
 
 interface DiffPreview {
   changes: CrDiffItem[];
-  source_set: string;
+  sourceSet: string;
   nav: {
     prev: { old: string; new: string };
   };
@@ -31,7 +31,7 @@ const CrPreviewPage = () => {
   return (
     <Row>
       <Col xs={12}>
-        <ColumnDiff oldName={data.source_set} newName={"???"} changes={data.changes} />
+        <ColumnDiff oldName={data.sourceSet} newName={"???"} changes={data.changes} />
       </Col>
       <Col xs={12}>
         <Button onClick={() => setShowModal(true)}>Confirm</Button>

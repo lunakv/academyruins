@@ -14,14 +14,14 @@ async function fetchMetadata() {
 }
 
 interface DiffMetadata {
-  source_code: string;
-  dest_code: string;
-  dest_name: string;
-  bulletin_url?: string;
+  sourceCode: string;
+  destCode: string;
+  destName: string;
+  bulletinUrl?: string;
 }
 
 function diffToUrl(item: DiffMetadata) {
-  return `/diff/cr/${item.source_code}-${item.dest_code}`;
+  return `/diff/cr/${item.sourceCode}-${item.destCode}`;
 }
 
 const CrDiffArchive = () => {
@@ -37,17 +37,17 @@ const CrDiffArchive = () => {
         {metadata.map((diff) => (
           <Row>
             <Col xs={1} className="pe-0">
-              <SetIcon setCode={diff.dest_code} />
+              <SetIcon setCode={diff.destCode} />
             </Col>
             <Col xs={11} className={`ps-0 ${classes.archiveLink}`}>
-              <Link to={diffToUrl(diff)}>{diff.dest_name}</Link>{" "}
-              {diff.bulletin_url && (
+              <Link to={diffToUrl(diff)}>{diff.destName}</Link>{" "}
+              {diff.bulletinUrl && (
                 <span className="text-nowrap">
                   [
                   <a
                     style={{ marginLeft: "1px", marginRight: "1px" }}
-                    href={diff.bulletin_url}
-                    aria-label={`Update Bulletin Link for ${diff.dest_code}`}
+                    href={diff.bulletinUrl}
+                    aria-label={`Update Bulletin Link for ${diff.destCode}`}
                   >
                     <UpdateBulletinIcon />
                   </a>

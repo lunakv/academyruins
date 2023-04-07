@@ -13,7 +13,7 @@ async function fetchPreview() {
 
 interface DiffPreview {
   changes: MtrDiffItem[];
-  effective_date: string;
+  effectiveDate: string;
 }
 
 const PolicyPreviewPage = () => {
@@ -32,7 +32,7 @@ const PolicyPreviewPage = () => {
   return (
     <Row>
       <Col xs={12}>
-        <InlineDiff title={data.effective_date} changes={data.changes} />
+        <InlineDiff title={data.effectiveDate} changes={data.changes} />
       </Col>
       <Col xs={12}>
         <Button onClick={() => setShowModal(true)}>Confirm</Button>

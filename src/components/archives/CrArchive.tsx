@@ -10,12 +10,12 @@ async function fetchMetadata() {
   return json.data;
 }
 
-const itemToUrl = (item: Metadata) => `${process.env.REACT_APP_API_URL}/file/cr/${encodeURIComponent(item.set_code)}`;
+const itemToUrl = (item: Metadata) => `${process.env.REACT_APP_API_URL}/file/cr/${encodeURIComponent(item.setCode)}`;
 
 interface Metadata {
-  creation_day: string;
-  set_code: string;
-  set_name: string;
+  creationDay: string;
+  setCode: string;
+  setName: string;
 }
 
 const CrArchive = () => {
@@ -31,10 +31,10 @@ const CrArchive = () => {
         {metadata.map((item) => (
           <Row>
             <Col xs={1} className="pe-0">
-              <SetIcon setCode={item.set_code} />
+              <SetIcon setCode={item.setCode} />
             </Col>
             <Col xs={11} className="ps-0">
-              <a href={itemToUrl(item)}>{item.set_name}</a>
+              <a href={itemToUrl(item)}>{item.setName}</a>
             </Col>
           </Row>
         ))}

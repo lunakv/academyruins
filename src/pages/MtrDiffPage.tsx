@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 interface MtrDiff {
   changes: MtrDiffItem[];
-  effective_date: string;
+  effectiveDate: string;
 }
 async function fetchDiff(date: string) {
   const res = await fetch(`${process.env.REACT_APP_API_URL}/diff/mtr/${date}`);
@@ -16,7 +16,7 @@ async function fetchDiff(date: string) {
 
 const diffDefault = {
   changes: [],
-  effective_date: "",
+  effectiveDate: "",
 };
 
 const MtrDiffPage = () => {
@@ -40,7 +40,7 @@ const MtrDiffPage = () => {
 
   return (
     <Loading isLoading={loading} className="mt-5">
-      <InlineDiff title={"Effective " + formatDate(diff.effective_date)} changes={diff.changes} />
+      <InlineDiff title={"Effective " + formatDate(diff.effectiveDate)} changes={diff.changes} />
     </Loading>
   );
 };
