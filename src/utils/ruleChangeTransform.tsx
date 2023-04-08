@@ -280,7 +280,7 @@ function inlineChanges(oldParsed: TextBlock[][], newParsed: TextBlock[][]): Text
       // a whole paragraph was deleted, nothing to inline here
       inlinedParagraphs.push(oldPara);
       oldI++;
-    } else if (newPara.length === 1 && newPara[1] instanceof Addition) {
+    } else if (newPara.length === 1 && newPara[0] instanceof Addition) {
       // a whole paragraph was added, nothing to inline here
       inlinedParagraphs.push(newPara);
       newI++;
@@ -373,16 +373,39 @@ function getFullTitle(item: MtrDiffItem) {
 
 export function transformMtrChange(diffItem: MtrDiffItem): [JSX.Element, JSX.Element[]] {
   const { old: oldChunk, new: newChunk } = diffItem;
-  const title = getFullTitle(diffItem);
 
   if (!oldChunk && !newChunk) {
     throw new Error("Either old or new version of the text must be defined");
   }
   if (!oldChunk) {
-    return [new NewRule(title).toJsx(), wrapChanges([new NewRule(newChunk!.content!)])];
+    const newRule = splitBasedOn([new NewRule(newChunk!.content!)], "\n\n")
+      .map(expandIfList)
+      .map((para) => <p>{wrapChanges(para)}</p>);
+    return [new NewRule(getFullTitle(diffItem)).toJsx(), newRule];
   }
   if (!newChunk) {
-    return [new DeletedRule(title).toJsx(), wrapChanges([new DeletedRule(oldChunk.content!)])];
+    const deletedRule = splitBasedOn([new DeletedRule(newChunk!.content!)], "\n\n")
+      .map(expandIfList)
+      .map((para) => <p>{wrapChanges(para)}</p>);
+    return [new DeletedRule(getFullTitle(diffItem)).toJsx(), deletedRule];
+  }
+
+  // format title
+  const title = [];
+  const oldFullSection = `${oldChunk.section}.${oldChunk.subsection ?? ""}`;
+  const newFullSection = `${newChunk.section}.${newChunk.subsection ?? ""}`;
+  if (oldFullSection === newFullSection) {
+    title.push(new SameText(oldFullSection));
+  } else {
+    title.push(new Removal(oldFullSection));
+    title.push(new Addition(newFullSection));
+  }
+  title.push(new JsxBlock(<>&nbsp;</>));
+  if (oldChunk.title === newChunk.title) {
+    title.push(new SameText(newChunk.title));
+  } else {
+    title.push(new Removal(oldChunk.title));
+    title.push(new Addition(newChunk.title));
   }
 
   const oldParsed = detectChanges(oldChunk.content!, Removal);
@@ -392,8 +415,7 @@ export function transformMtrChange(diffItem: MtrDiffItem): [JSX.Element, JSX.Ele
   const paragraphedNew = splitBasedOn(newParsed, "\n\n");
 
   const inlined = inlineChanges(paragraphedOld, paragraphedNew);
-
   const withHandledLists = inlined.map(expandIfList);
 
-  return [<>{title}</>, withHandledLists.map((para) => <p>{wrapChanges(para)}</p>)];
+  return [<>{wrapChanges(title)}</>, withHandledLists.map((para) => <p>{wrapChanges(para)}</p>)];
 }

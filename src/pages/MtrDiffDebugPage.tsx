@@ -6,12 +6,12 @@ import { formatDate } from "../utils/dateFormatter";
 import { MtrDiffItem } from "../types";
 
 interface Diff {
-  effective_date: string;
+  effectiveDate: string;
   changes: MtrDiffItem[];
 }
 
 const MtrDiffDebugPage = () => {
-  const [diff, setDiff] = useState<Diff>({ changes: [], effective_date: new Date().toISOString() });
+  const [diff, setDiff] = useState<Diff>({ changes: [], effectiveDate: new Date().toISOString() });
 
   return (
     <Row>
@@ -19,7 +19,7 @@ const MtrDiffDebugPage = () => {
         <input type="file" onChange={loadFile(setDiff)} />
       </Col>
       <Col xs={12}>
-        <InlineDiff title={formatDate(diff.effective_date)} changes={diff.changes} />
+        <InlineDiff title={formatDate(diff.effectiveDate)} changes={diff.changes} />
       </Col>
     </Row>
   );

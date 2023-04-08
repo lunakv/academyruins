@@ -4,7 +4,7 @@ import ChunkedList from "../ChunkedList";
 import { formatDate } from "../../utils/dateFormatter";
 
 interface Metadata {
-  effective_date: string;
+  effectiveDate: string;
 }
 async function fetchMetadata() {
   const res = await fetch(`${process.env.REACT_APP_API_URL}/metadata/mtr-diffs`);
@@ -29,7 +29,7 @@ const PolicyDiffArchive = () => {
       <ChunkedList cols={2}>
         {metadata.map((item) => (
           <div>
-            <a href={dateToUrl(item.effective_date)}>{formatDate(item.effective_date)}</a>
+            <a href={dateToUrl(item.effectiveDate)}>{formatDate(item.effectiveDate)}</a>
           </div>
         ))}
       </ChunkedList>

@@ -13,8 +13,8 @@ async function fetchDiff(sets: string) {
 
 interface ApiDiff {
   changes: CrDiffItem[];
-  source_set: string;
-  dest_set: string;
+  sourceSet: string;
+  destSet: string;
   nav: {
     prev?: { old: string; new: string };
     next?: { old: string; new: string };
@@ -62,7 +62,7 @@ const RulesDiffPage = () => {
 
   return (
     <Loading isLoading={isLoading} className="mt-5">
-      <ColumnDiff changes={diff?.changes} oldName={diff?.source_set} newName={diff?.dest_set} />
+      <ColumnDiff changes={diff?.changes} oldName={diff?.sourceSet} newName={diff?.destSet} />
       <NavigationPanel onClick={handleMove} leftDisabled={!diff?.nav.prev} rightDisabled={!diff?.nav.next} />
     </Loading>
   );

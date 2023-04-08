@@ -4,7 +4,7 @@ import Loading from "../Loading";
 import { formatDate } from "../../utils/dateFormatter";
 
 interface Metadata {
-  creation_day: string;
+  creationDay: string;
 }
 
 type DocKind = "mtr" | "ipg";
@@ -31,7 +31,7 @@ const PolicyDocArchive = ({ kind }: { kind: DocKind }) => {
       <ChunkedList cols={3}>
         {metadata.map((item) => (
           <div>
-            <a href={fileToUrl(item.creation_day, kind)}>{formatDate(item.creation_day)}</a>
+            <a href={fileToUrl(item.creationDay, kind)}>{formatDate(item.creationDay)}</a>
           </div>
         ))}
       </ChunkedList>
