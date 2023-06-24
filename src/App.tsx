@@ -14,6 +14,8 @@ import MtrDiffPage from "./pages/MtrDiffPage";
 import PolicyPreviewPage from "./pages/PolicyPreviewPage";
 import MtrDiffDebugPage from "./pages/MtrDiffDebugPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import TracePage from "./pages/TracePage";
+import TraceSearchPage from "./pages/TraceSearchPage";
 
 function App() {
   const [hasError, setError] = useState(false);
@@ -43,6 +45,8 @@ function App() {
           <Route path="/preview/mtr" element={withHeader(<PolicyPreviewPage />)} />
           <Route path="/debug/cr" element={withHeader(<CrDiffDebugPage />)} />
           <Route path="/debug/mtr" element={withHeader(<MtrDiffDebugPage />)} />
+          <Route path="/trace" element={withHeader(<TraceSearchPage />)} />
+          <Route path="/trace/:rule" element={withHeader(<TracePage />)} />
           <Route path="/" element={<LandingPage />} />
           <Route path="*" element={withHeader(<NotFoundPage />)} />
           {/* TODO IPG diff routes */}
