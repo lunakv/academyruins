@@ -4,7 +4,7 @@ import { Accordion, Col, Dropdown, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ReactComponent as DiffIcon } from "bootstrap-icons/icons/file-earmark-diff.svg";
 import { ReactComponent as ArchiveIcon } from "bootstrap-icons/icons/archive.svg";
-import { ReactComponent as GearIcon } from "bootstrap-icons/icons/gear.svg";
+import { ReactComponent as HistoryIcon } from "bootstrap-icons/icons/clock-history.svg";
 import { ReactComponent as QuestionIcon } from "bootstrap-icons/icons/question-circle.svg";
 import { PropsWithChildren } from "react";
 
@@ -96,9 +96,9 @@ const LandingPage = () => (
         </Link>
       </Col>
       <Col md={3} className="landing-link">
-        <a href={process.env.REACT_APP_API_URL + "/docs"}>
-          <LandingPageIcon icon={<GearIcon />} description="API" />
-        </a>
+        <Link to="/trace">
+          <LandingPageIcon icon={<HistoryIcon />} description="Trace" />
+        </Link>
       </Col>
       <Col md={3} className="landing-link">
         <Link to="/about">

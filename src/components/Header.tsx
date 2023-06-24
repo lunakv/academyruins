@@ -51,6 +51,9 @@ const Header = ({ onClick }: Props) => {
               <Nav.Link as={linkTag} to="/archives">
                 Archives
               </Nav.Link>
+              <Nav.Link as={linkTag} to="/trace">
+                Trace
+              </Nav.Link>
               <Nav.Link href={`${process.env.REACT_APP_API_URL}/docs`} target="_blank">
                 API
               </Nav.Link>
