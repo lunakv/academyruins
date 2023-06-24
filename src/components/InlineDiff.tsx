@@ -9,7 +9,7 @@ interface Props {
 
   changes: MtrDiffItem[];
 }
-const InlineDiffPage = ({ title, changes }: Props) => (
+const InlineDiff = ({ title, changes }: Props) => (
   <Container fluid="lg">
     <h2 className="text-center my-4">{title}</h2>
     <Accordion flush>
@@ -23,4 +23,4 @@ const InlineDiffPage = ({ title, changes }: Props) => (
   </Container>
 );
 
-export default InlineDiffPage;
+export default InlineDiff;

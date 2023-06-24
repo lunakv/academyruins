@@ -6,7 +6,7 @@ import PolicyDocArchive from "../components/archives/PolicyDocArchive";
 import PolicyDiffArchive from "../components/archives/PolicyDiffArchive";
 
 const ArchivesPage = () => (
-  <Container fluid="lg" className=" my-5">
+  <Container fluid="lg" className="my-5">
     <div className="text-center mb-4">
       <h2>Old Diffs</h2>
       <p>

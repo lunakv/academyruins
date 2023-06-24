@@ -1,5 +1,5 @@
 interface CrDiffRule {
-  ruleNum: string;
+  ruleNumber: string;
   ruleText: string;
 }
 

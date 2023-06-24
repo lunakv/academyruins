@@ -5,8 +5,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import NavigationPanel from "../components/NavigationPanel";
 
-async function fetchDiff(sets: string) {
-  const res = await fetch(`${process.env.REACT_APP_API_URL}/diff/cr/${encodeURIComponent(sets)}`);
+async function fetchDiff(diffString: string) {
+  const sets = diffString.split("-");
+  let oldSet, newSet;
+  if (sets.length === 1) newSet = sets[0];
+  else {
+    oldSet = sets[0];
+    newSet = sets[1];
+  }
+
+  let query = "?nav=true";
+  if (oldSet) query += `&old=${encodeURIComponent(oldSet)}`;
+  if (newSet) query += `&new=${encodeURIComponent(newSet)}`;
+
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/diff/cr/${query}`);
   const json = await res.json();
   return json;
 }
@@ -15,9 +27,11 @@ interface ApiDiff {
   changes: CrDiffItem[];
   sourceSet: string;
   destSet: string;
+  sourceCode: string;
+  destCode: string;
   nav: {
-    prev?: { old: string; new: string };
-    next?: { old: string; new: string };
+    prevSourceCode?: string;
+    nextDestCode?: string;
   };
 }
 
@@ -52,9 +66,9 @@ const RulesDiffPage = () => {
   const handleMove = useCallback(
     (prop: "prev" | "next") => {
       if (!diff) return;
-      const sets = diff.nav[prop];
-      if (!sets) return;
-      navigate.current(`/diff/cr/${sets.old}-${sets.new}`);
+      const newDiff =
+        prop === "prev" ? `${diff.nav.prevSourceCode}-${diff.sourceCode}` : `${diff.destCode}-${diff.nav.nextDestCode}`;
+      navigate.current(`/diff/cr/${newDiff}`);
       setDiff(undefined);
     },
     [diff]
@@ -63,7 +77,11 @@ const RulesDiffPage = () => {
   return (
     <Loading isLoading={isLoading} className="mt-5">
       <ColumnDiff changes={diff?.changes} oldName={diff?.sourceSet} newName={diff?.destSet} />
-      <NavigationPanel onClick={handleMove} leftDisabled={!diff?.nav.prev} rightDisabled={!diff?.nav.next} />
+      <NavigationPanel
+        onClick={handleMove}
+        leftDisabled={!diff?.nav.prevSourceCode}
+        rightDisabled={!diff?.nav.nextDestCode}
+      />
     </Loading>
   );
 };
