@@ -131,11 +131,12 @@ function detectChanges<T extends Change>(ruleText: string, type: ConstructorOf<T
 function getActualSubtypeChanges(text: TextBlock[]): string[] {
   return text
     .filter((e) => e instanceof Change)
-    .map((e) => e.toString().replaceAll(/[,.]/g, ""))
+    .map((e) => e.toString())
     .reduce((acc: string[], val: string) => {
-      acc.push(...val.split(" "));
+      acc.push(...val.split(/[,.] ?(?:and )?/));
       return acc;
-    }, []);
+    }, [])
+    .filter((change) => change !== "");
 }
 
 /**
