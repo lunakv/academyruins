@@ -393,15 +393,18 @@ export function transformMtrChange(diffItem: MtrDiffItem): [JSX.Element, JSX.Ele
 
   // format title
   const title = [];
-  const oldFullSection = `${oldChunk.section}.${oldChunk.subsection ?? ""}`;
-  const newFullSection = `${newChunk.section}.${newChunk.subsection ?? ""}`;
+
+  const oldFullSection = oldChunk.section ? `${oldChunk.section}.${oldChunk.subsection ?? ""}` : "";
+  const newFullSection = newChunk.section ? `${newChunk.section}.${newChunk.subsection ?? ""}` : "";
   if (oldFullSection === newFullSection) {
     title.push(new SameText(oldFullSection));
   } else {
     title.push(new Removal(oldFullSection));
     title.push(new Addition(newFullSection));
   }
-  title.push(new JsxBlock(<>&nbsp;</>));
+  if (oldFullSection !== "" || && newFullSection !== "") {
+    title.push(new JsxBlock(<>&nbsp;</>));
+  }
   if (oldChunk.title === newChunk.title) {
     title.push(new SameText(newChunk.title));
   } else {
