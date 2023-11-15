@@ -402,7 +402,7 @@ export function transformMtrChange(diffItem: MtrDiffItem): [JSX.Element, JSX.Ele
     title.push(new Removal(oldFullSection));
     title.push(new Addition(newFullSection));
   }
-  if (oldFullSection !== "" || && newFullSection !== "") {
+  if (oldFullSection !== "" || newFullSection !== "") {
     title.push(new JsxBlock(<>&nbsp;</>));
   }
   if (oldChunk.title === newChunk.title) {
