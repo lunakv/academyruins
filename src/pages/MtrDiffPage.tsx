@@ -4,6 +4,7 @@ import InlineDiff from "../components/InlineDiff";
 import { MtrDiffItem } from "../types";
 import { formatDate } from "../utils/dateFormatter";
 import { useParams } from "react-router-dom";
+import NavigationPanel from "../components/NavigationPanel";
 
 interface MtrDiff {
   changes: MtrDiffItem[];
@@ -41,6 +42,7 @@ const MtrDiffPage = () => {
   return (
     <Loading isLoading={loading} className="mt-5">
       <InlineDiff title={"Effective " + formatDate(diff.effectiveDate)} changes={diff.changes} />
+      <NavigationPanel leftDisabled rightDisabled onClick={() => {}} />
     </Loading>
   );
 };
