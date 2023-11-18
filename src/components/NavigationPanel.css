@@ -14,6 +14,10 @@
   display: none !important;
 }
 
+.navigation .btn-link:focus {
+  box-shadow: none;
+}
+
 @media only screen and (max-width: 1199px) {
   .navigation-container {
     bottom: 0;
@@ -47,12 +51,17 @@
     height: 1.75em;
     width: auto;
   }
+
+  .navigation.navigation-top {
+    padding-left: 0;
+  }
 }
 
 @media only screen and (min-width: 1200px) {
   .navigation-container {
-    bottom: 50%;
-    transform: translateY(-50%);
+    position: fixed;
+    bottom: 0;
+    /*transform: translateY(-50%);*/
   }
 
   .navigation-placeholder {
@@ -83,12 +92,22 @@
     /*transform: translateY(-50%);*/
   }
 
+  .navigation.navigation-left, .navigation.navigation-right {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
   .navigation.navigation-right {
     right: var(--sidenav-offset);
   }
 
   .navigation.navigation-left {
     left: var(--sidenav-offset);
+  }
+
+  .navigation.navigation-top {
+    right: var(--sidenav-offset);
+    bottom: 2rem;
   }
 
   .navigation .btn-link svg {
