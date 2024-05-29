@@ -385,7 +385,7 @@ export function transformMtrChange(diffItem: MtrDiffItem): [JSX.Element, JSX.Ele
     return [new NewRule(getFullTitle(diffItem)).toJsx(), newRule];
   }
   if (!newChunk) {
-    const deletedRule = splitBasedOn([new DeletedRule(newChunk!.content!)], "\n\n")
+    const deletedRule = splitBasedOn([new DeletedRule(oldChunk!.content!)], "\n\n")
       .map(expandIfList)
       .map((para) => <p>{wrapChanges(para)}</p>);
     return [new DeletedRule(getFullTitle(diffItem)).toJsx(), deletedRule];
