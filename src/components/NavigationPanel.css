@@ -92,7 +92,8 @@
     /*transform: translateY(-50%);*/
   }
 
-  .navigation.navigation-left, .navigation.navigation-right {
+  .navigation.navigation-left,
+  .navigation.navigation-right {
     top: 50%;
     transform: translateY(-50%);
   }
