@@ -1,6 +1,6 @@
 server {
-    listen 80;
-    server_name ${SERVER_NAME};
+    listen ${ACADEMYRUINS_PORT} default_server;
+
     root /usr/share/nginx/html;
 
     location / {
