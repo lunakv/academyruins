@@ -1,0 +1,8 @@
+service:
+  frontend:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      API_URL: "http://localhost"
+      SERVER_NAME: "localhost"
