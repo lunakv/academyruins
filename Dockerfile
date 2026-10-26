@@ -4,7 +4,7 @@ FROM node:18 AS builder
 WORKDIR /app
 
 COPY package.json package-lock.json tsconfig.json ./
-RUN npm install 
+RUN npm ci
 
 COPY src src
 COPY public public
