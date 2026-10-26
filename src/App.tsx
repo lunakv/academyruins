@@ -16,6 +16,10 @@ import MtrDiffDebugPage from "./pages/MtrDiffDebugPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import TracePage from "./pages/TracePage";
 import TraceSearchPage from "./pages/TraceSearchPage";
+import AdminPage from "./pages/admin/AdminPage";
+import AdminLinksPage from "./pages/admin/AdminLinksPage";
+import AdminPendingLinksPage from "./pages/admin/AdminPendingLinksPage";
+import AdminPendingDiffsPage from "./pages/admin/AdminPendingDiffsPage";
 
 function App() {
   const [hasError, setError] = useState(false);
@@ -47,6 +51,10 @@ function App() {
           <Route path="/debug/mtr" element={withHeader(<MtrDiffDebugPage />)} />
           <Route path="/trace" element={withHeader(<TraceSearchPage />)} />
           <Route path="/trace/:rule" element={withHeader(<TracePage />)} />
+          <Route path="/admin" element={withHeader(<AdminPage />)} />
+          <Route path="/admin/links" element={withHeader(<AdminLinksPage />)} />
+          <Route path="/admin/pending-links" element={withHeader(<AdminPendingLinksPage />)} />
+          <Route path="/admin/pending-diffs" element={withHeader(<AdminPendingDiffsPage />)} />
           <Route path="/" element={<LandingPage />} />
           <Route path="*" element={withHeader(<NotFoundPage />)} />
           {/* TODO IPG diff routes */}
