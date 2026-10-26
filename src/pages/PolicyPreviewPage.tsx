@@ -37,7 +37,11 @@ const PolicyPreviewPage = () => {
       <Col xs={12}>
         <Button onClick={() => setShowModal(true)}>Confirm</Button>
       </Col>
-      <PolicyPreviewConfirmModal show={showModal} onHide={() => setShowModal(false)} />
+      <PolicyPreviewConfirmModal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        effectiveDate={data.effectiveDate}
+      />
     </Row>
   );
 };

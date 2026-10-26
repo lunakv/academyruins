@@ -1,59 +1,60 @@
 // submit new diff from preview
-import { Button, Form, Modal } from "react-bootstrap";
+import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { useState } from "react";
+import { adminFetch } from "../utils/adminApi";
 
 interface Props {
   show: boolean;
   onHide: () => void;
+  onConfirmed?: () => void;
 }
 
-const CrPreviewConfirmModal = ({ show, onHide }: Props) => {
+const CrPreviewConfirmModal = ({ show, onHide, onConfirmed }: Props) => {
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
   const [bulletin, setBulletin] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [response, setResponse] = useState("Not sent");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   const handleSubmit = async () => {
-    const body = { name, code, bulletin };
-    const token = encodeURIComponent(pwd);
-    const resp = await fetch(`${process.env.REACT_APP_API_URL}/admin/confirm/cr?token=${token}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    setResponse(resp.status + "\n\n" + (await resp.text()));
+    setBusy(true);
+    setError(undefined);
+    try {
+      await adminFetch("/admin/confirm/cr", {
+        method: "POST",
+        body: JSON.stringify({ name, code, bulletin }),
+      });
+      onConfirmed?.();
+      onHide();
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Confirm New Diff</Modal.Title>
+        <Modal.Title>Confirm New CR Diff</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form.Group>
+        <Form.Group className="mb-3">
           <Form.Label>Set Name</Form.Label>
-          <Form.Control type="input" value={name} onChange={(e) => setName(e.target.value)} />
+          <Form.Control value={name} maxLength={50} onChange={(e) => setName(e.target.value)} />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="mb-3">
           <Form.Label>Set Code</Form.Label>
-          <Form.Control type="input" value={code} onChange={(e) => setCode(e.target.value)} />
+          <Form.Control value={code} maxLength={5} onChange={(e) => setCode(e.target.value)} />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Update Bulletin URL</Form.Label>
-          <Form.Control type="input" value={bulletin} onChange={(e) => setBulletin(e.target.value)} />
+        <Form.Group className="mb-3">
+          <Form.Label>Update Bulletin URL (optional)</Form.Label>
+          <Form.Control type="url" value={bulletin} onChange={(e) => setBulletin(e.target.value)} />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" value={pwd} onChange={(e) => setPwd(e.target.value)} />
-        </Form.Group>
-        <hr />
-        <textarea readOnly value={response} />
+        {error && <Alert variant="danger">{error}</Alert>}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="success" onClick={handleSubmit}>
+        <Button variant="success" onClick={handleSubmit} disabled={busy || !name || !code}>
           Submit
         </Button>
       </Modal.Footer>
