@@ -1,5 +1,5 @@
 # Builder stage - builds SPA from source
-FROM node:18 AS builder
+FROM node:26 AS builder
 
 WORKDIR /app
 
